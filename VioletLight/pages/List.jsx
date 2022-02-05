@@ -1,67 +1,108 @@
-import { StyleSheet, Dimensions, Text, TouchableOpacity, View, Image, SafeAreaView, Button, Alert, Platform, StatusBar } from 'react-native';
-import { backgroundColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
+import React from 'react';
+import { StyleSheet, Text, View, SafeAreaView, FlatList, Platform, SafeAreaProvider} from "react-native";
 
-const List = () => {
-  const handlePress = () => console.log("Text Pressed")
-  console.log(Dimensions.get("screen"));
+const userList = [
+  {id: 1, name: 'Black Panter'},
+  {id: 2, name: 'Black Widow'},
+  {id: 3, name: 'Captain America'},
+  {id: 4, name: 'The Collector'},
+  ];
+
+  const myKeyExtractor = (item) => {
+    return item.id
+  }
   
-  return (
-    <SafeAreaView style={styles.container}>
-    {/* <SafeAreaView style={{backgroundColor:"orange"}}> */}
-    <View style={{
-      backgroundColor: 'green',
-      width: '80%',
-      height: 70
-    }}></View>
-
-
-    <Button
-        color="red"
-        title="Prompt Here"
-        onPress={() => 
-          Alert.prompt("My Title", "My message", text => console.log(text))}
-      />
-      
-      <Button
-        color="orange"
-        title="Click Me"
-        // onPress={() => alert('Button Tapped')} // generic alert
-        onPress={() => Alert.alert("My Title", "My message", [
-          {text: "Yes", onPress: () => console.log("Yes")},
-          {text: "No", onPress: () => console.log("No")},
-        ])}
-
-      />
-
-      <Text numberOfLines={1} onPress={handlePress}>Hello World</Text>
-      <Text>Hello React Native</Text>
-      {/* <Image source={require('./assets/icon.png')} /> */}
-      <TouchableOpacity onPress={() => console.log("Image tapped")}>
-        <Image 
-          // blurRadius={10}
-        source={{
-          width: 200,
-          height: 300,
-          uri: "https://picsum.photos/200/300"}} />
-          
-      </TouchableOpacity>
-      <View style={{width:300, height:70, backgroundColor:"purple"}}></View>
-
-    </SafeAreaView>
-
-
-
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  const renderItem = ({item}) => {
+    return <View><Text>{item.name}</Text></View>
+  }
+  
+  const Header = () => {
+    return (
+      <View style={styles.header}>
+        <Text style={styles.headerText}>
+          Marvel list
+        </Text>
+      </View>
+    )
+  }
+  
+  const Footer = () => {
+    return (
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>
+          Thanks for reading!
+        </Text>
+      </View>
+    )
+  }
+  
+  const List = () => {
+      const [refreshing, setRefreshing] = React.useState(false)
+  
+      const handleRefresh = () => {
+        setRefreshing(prevState => !prevState)
+      }
+  
+        return (
+          <SafeAreaView style={styles.separateHero}>
+            <Header />
+            <FlatList
+              data={userList}
+              renderItem={renderItem}
+              ItemSeparatorComponent={
+                Platform.OS !== 'android' &&
+                 (({ highlighted }) => (
+                   <View
+                      style={
+                         styles.separator
+               }
+                  />
+                ))
+              }
+              keyExtractor={myKeyExtractor}
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+            />
+            <Footer />
+          </SafeAreaView>
+          )
+      }
+  
+  const styles = StyleSheet.create({
+    separator: {
+      height: 1,
+      width: "100%",
+      backgroundColor: '#ff0000',
+    },
+    separateHero: {
+      height: '100vh' 
   },
-});
-
-export default List;
+      header: {
+        backgroundColor: 'red',
+        width: '100vw',
+        height: 45,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 20
+      },
+      headerText: {
+        color: '#fff',
+        fontSize: 18
+      },
+      footer: {
+        backgroundColor: 'white',
+        width: '100vw',
+        height: 45,
+        justifyContent: 'center',
+        alignItems: 'center',
+        bottom: 0
+      },
+      footerText: {
+        color: '#000',
+        fontSize: 18
+      }
+  });
+  
+  
+  export default List
+  
