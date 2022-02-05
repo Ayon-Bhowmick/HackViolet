@@ -1,1 +1,2 @@
-database: git subtree push --prefix database heroku master
+database: 
+	cd database && npm run-script build && npm start

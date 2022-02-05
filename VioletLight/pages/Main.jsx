@@ -1,6 +1,7 @@
 import * as Battery from 'expo-battery';
 import { SafeAreaView, View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
+import List from './List';
 
 
 const Main = ( {route, navigation } : any) => {
@@ -82,13 +83,14 @@ const Main = ( {route, navigation } : any) => {
                 )}
                 {view === "E" && (
                     <>
-                        <Text>group view</Text>
+                        {/* <Text>group view</Text>
                         <Button title='End party' onPress={() => setView("A")} title="Done"/>
 
                         
                         <TouchableOpacity style={styles.startbtn}  onPress={alertFunction}>
                         <Text style={styles.startbtnText}>Alert!</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
+                        <List />
                     </>
                 
                 )}
