@@ -49,7 +49,7 @@ const Main = ( {route, navigation } : any) => {
                     <TouchableOpacity style={styles.joinGrp}  onPress={() => setView("D")} title="Join Group">
                         <Text style={styles.textBtn}>Join Group</Text>
                     </TouchableOpacity>
-                    <Button title='Back' onPress={() => setView("A")} title="Back"/>
+                    
                 </>
                 )}
                 {view === "C" && (
@@ -76,8 +76,15 @@ const Main = ( {route, navigation } : any) => {
                 {view === "D" && (
                 <>
                     <Text style={styles.header}>VioletLight</Text>
-                    <Text>enter ID</Text>
-                    <Button title='Done' onPress={() => setView("E")} title="Start"/>
+                    <TouchableOpacity style={styles.inputContainer}>
+                        <TextInput 
+                        style={styles.nameInput}
+                        placeholder='          Enter Group ID'/>
+
+                        <TouchableOpacity style={styles.create}  onPress={() => setView("E")} title="Join Group">
+                            <Text style={styles.textCreate}>Join</Text>
+                        </TouchableOpacity>
+                    </TouchableOpacity>
                 </>
                 
 
