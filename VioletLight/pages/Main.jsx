@@ -12,6 +12,10 @@ const Main = ( {route, navigation } : any) => {
         const { level } = await Battery.getBatteryLevelAsync();
         setBatteryLevel(level);
     }
+
+    const alertFunction = async () =>{
+        // ERICK CODE HERE
+    }
     const [view, setView] = useState("A");
 
     return (
@@ -44,17 +48,15 @@ const Main = ( {route, navigation } : any) => {
                     <Text style={styles.header}>VioletLight</Text>
                     
                     <TouchableOpacity style={styles.inputContainer}>
-                        <Text style={styles.enterName}>Enter Your Name:</Text>
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='               Your Name'/>
+                        placeholder='          Enter Your Name'/>
 
-                        <Text>enter distance</Text>
                         <TextInput 
-                        style={styles.distanceInput}
-                        placeholder='               Max Distance'/>
+                        style={styles.nameInput}
+                        placeholder='         Enter Max Distance'/>
                         <TouchableOpacity style={styles.create}  onPress={() => setView("E")} title="Join Group">
-                            <Text style={styles.textBtn}>Create</Text>
+                            <Text style={styles.textCreate}>Create</Text>
                         </TouchableOpacity>
                     </TouchableOpacity>
                     
@@ -75,6 +77,11 @@ const Main = ( {route, navigation } : any) => {
                     <>
                         <Text>group view</Text>
                         <Button title='End party' onPress={() => setView("A")} title="Done"/>
+
+                        
+                        <TouchableOpacity style={styles.startbtn}  onPress={alertFunction}>
+                        <Text style={styles.startbtnText}>Alert!</Text>
+                    </TouchableOpacity>
                     </>
                 
                 )}
@@ -162,7 +169,20 @@ const styles = StyleSheet.create({
     inputContainer: {
         top: '30%',
         backgroundColor: 'white',
-        
+        borderRadius: 10,
+        padding: 20,
+    },
+
+    create: {
+        backgroundColor: 'rgb(220, 157, 250)',
+
+    },
+
+    textCreate:{
+        textAlign: 'center',
+        fontSize: 35,
+        fontWeight: 'bold',
+        color: 'white',
     }
 
   });
