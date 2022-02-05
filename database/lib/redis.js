@@ -42,7 +42,7 @@ export async function getEveryone(device) {
     let data = [];
     const keys = await client.execute(["KEYS", "*"]);
     for (let x = 0; x < keys.length; x++) {
-        if (keys[x] != device) {
+        if (keys[x] != device && keys[x] != "group") {
             data.push(await client.execute(["GET", keys[x]]));
         }
     }
