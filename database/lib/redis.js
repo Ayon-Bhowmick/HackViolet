@@ -27,17 +27,21 @@ let schema = new Schema(
     }
 );
 
-export async function save(name, data) {
+export async function save(device, name, distance, battery) {
     await connect();
-    await client.execute(["SET", name, JSON.stringify(data)]);
-    return 0;
+    let data = {
+        name: name,
+        distance: distance,
+        battery: battery,
+    }
+    await client.execute(["SET", device, JSON.stringify(data)]);
 }
 
-export async function get(name) {
+export async function getEveryone(device) {
     let data;
     const keys = await client.execute(["KEYS", "*"]);
     for (let key of keys) {
-        if (key != name) {
+        if (key != device) {
             data.push(await client.execute(["GET", key]));
         }
     }
