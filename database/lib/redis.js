@@ -38,7 +38,8 @@ export async function save(device, name, distance, battery) {
 }
 
 export async function getEveryone(device) {
-    let data;
+    await connect();
+    let data = [];
     const keys = await client.execute(["KEYS", "*"]);
     for (let key of keys) {
         if (key != device) {
