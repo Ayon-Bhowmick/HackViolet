@@ -2,6 +2,7 @@ import * as Battery from 'expo-battery';
 import { SafeAreaView, View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { useState } from 'react';
 
+
 const Main = ( {route, navigation } : any) => {
     const [batteryLevel, setBatteryLevel] = useState(null);
     const [text, setText] = useState('');
@@ -13,22 +14,12 @@ const Main = ( {route, navigation } : any) => {
     const [view, setView] = useState("A");
 
     return (
-        <>
-        <SafeAreaView>
-            <View>
-                {/* The button which will take you to the page to create a group where you will input your name and then the distance */}
-                
-                {/* This button will take you to a page where you  can enter the party code or maybe scan a QR code*/}
-                
-                {/* <Text>Battery Level: {batteryLevel}</Text>
-                <TextInput onChangeText={setText} value={text} />
-                <Button title="send" onPress={getBatteryLevel} /> */}
-            </View>
             <View style={styles.container}>
                 {view === "A" && (
                 <>
-                    <Text>Default</Text>
-                    <Button title='Start' onPress={() => setView("B")} title="Start"/>
+                    <Text style={styles.violetlight}>VioletLight</Text>
+                    <Button style={styles.startbtn} title='Start' onPress={() => setView("B")} title="Start"/>
+                   
                 </>
                 
                 )}
@@ -66,18 +57,34 @@ const Main = ( {route, navigation } : any) => {
                 
                 )}
             </View>
-        </SafeAreaView>
-        </>
     );
     
 
 };
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#AAA',
-      alignItems: 'center',
-      justifyContent: 'center',
+        
+        height:'100%',
+        width: '100%',
+        backgroundColor: 'rgb(106, 90, 205)', 
+        alignItems:'center',
+        paddingTop: '10%'
+        
+      
     },
+    startbtn: {
+        position: 'absolute',
+        bottom:0,
+        left:0,
+        top: 100
+    
+    },
+
+    violetlight: {
+        fontSize: 65,
+        fontWeight: 'bold',
+        paddingTop: '20%',
+        color: 'rgb(220, 157, 250)'
+    }
   });
 export default Main;
