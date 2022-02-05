@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions, Text, TouchableOpacity, View, Image, SafeAreaView, Button, Alert, Platform, StatusBar } from 'react-native';
 import { backgroundColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
-export default function App() {
+const List = () => {
   const handlePress = () => console.log("Text Pressed")
   console.log(Dimensions.get("screen"));
   
@@ -63,3 +63,5 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 });
+
+export default List;
