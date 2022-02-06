@@ -104,18 +104,19 @@ const List = () => {
  
   return (
     <View style={{ flex: 1, padding: 24 }}>
+      <Text>{Math.floor(100000 + Math.random() * 900000)}</Text>      
       {isLoading ? <ActivityIndicator/> : (
         <FlatList
           data={data}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
-            <Text style={styles.items}>{item.name}   {item.distance}   {item.battery}</Text>
+            <Text style={styles.items}>{item.name}       {item.distance}ft        {item.battery}%</Text>
           )}
         />
       )}
 
 
-<Button
+        <Button
         color="red"
         title="Emergency"
         // onPress={() => alert('Button Tapped')} // generic alert
@@ -127,9 +128,7 @@ const List = () => {
       />
     </View>
  
-   
   );
- 
  
 };
  
@@ -138,7 +137,7 @@ const styles = StyleSheet.create({
     backgroundColor:'#FFF',
     padding: 0,
     margin: 1,
-    fontSize: 36,
+    fontSize: 24,
     height: 44,
     width: 300,
     textAlign: 'center',
