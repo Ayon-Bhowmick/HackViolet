@@ -6,7 +6,6 @@ const client = new Client();
 async function connect() {
     if (!client.isOpen()) {
         try {
-            console.log("Connecting to Redis...");
             await client.open(process.env.REDIS_URL);
             console.log("Connected to Redis.");
         } catch (err) {
@@ -79,8 +78,19 @@ export async function getLocation() {
     return JSON.parse(temp).location;
 }
 
-export async function getNameNumber(device) {
+export async function getName(device) {
+    await connect();
+    let data = await client.execute(["GET", device]);
+    return JSON.parse(data).name;
+}
+
+export async function getNumber(device) {
     await connect();
     const temp = await client.execute(["GET", device]);
-    return [JSON.parse(temp).name, JSON.parse(temp).number];
+    return JSON.parse(temp).number;
+}
+
+export async function wipe() {
+    await connect();
+    await client.execute(["FlUSHALL"]);
 }

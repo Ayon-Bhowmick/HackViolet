@@ -1,1 +1,2 @@
 # HackViolet
+## Together & Safe
