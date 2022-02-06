@@ -19,6 +19,7 @@
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
     "react-native-device-info": "^8.4.8",
+    "react-native-location": "^2.5.0",
     "react-native-web": "0.17.1",
     "redis": "^4.0.3",
     "redis-om": "^0.1.7",
