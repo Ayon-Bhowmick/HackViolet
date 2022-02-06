@@ -15,6 +15,7 @@ const Main = () => {
     }
 
     const makeGroup = async () => {
+        
         await fetch("http://128.180.206.51:3000/api/makeGroup", {
             body: JSON.stringify({"distance": distance}),
             method: "POST",
