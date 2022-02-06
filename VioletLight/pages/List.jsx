@@ -5,26 +5,6 @@ import { ActivityIndicator, FlatList, Button, Text, View, Alert } from 'react-na
 export default App = () => {
 
 
-RNLocation.configure({
- distanceFilter: null
-})
-
-const permissionHandle = async () => {
-
-  console.log('here')
-
-
-  let permission = await RNLocation.checkPermission({
-    ios: 'whenInUse', // or 'always'
-    android: {
-      detail: 'coarse' // or 'fine'
-    }
-  });
-
-  console.log('here2')
-  console.log(permission)
-
-}
 
 const alertFunction = async () =>{
   console.log("ALERT ACTIVATED")
