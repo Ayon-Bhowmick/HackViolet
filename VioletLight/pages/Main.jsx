@@ -2,7 +2,7 @@ import * as Battery from 'expo-battery';
 import { SafeAreaView, View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import { useState } from 'react';
 import List from './List';
-import SMSForm from './SMSForm';
+// import SMSForm from './SMSForm';
 
 const Main = () => {
     const [batteryLevel, setBatteryLevel] = useState(null);
@@ -15,6 +15,7 @@ const Main = () => {
     }
 
     const makeGroup = async () => {
+        
         await fetch("http://128.180.206.51:3000/api/makeGroup", {
             body: JSON.stringify({"distance": distance}),
             method: "POST",
