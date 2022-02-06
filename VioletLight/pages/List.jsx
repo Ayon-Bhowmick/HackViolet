@@ -4,7 +4,6 @@ import * as Device from 'expo-device';
 import * as Battery from 'expo-battery';
 import * as Location from 'expo-location';
 
-
  
 const List = () => {
   const alertFunction = async () => {
@@ -94,22 +93,12 @@ const List = () => {
         return percent;
     }
 
-  setInterval(addSelf, 60000);
-
   const addSelf = async () => {
         const bat = await getBatteryLevel();
         const cord = await getLocation();
-        const location = await (await fetch("http://128.180.206.51:3000/api/getLocation", {
-			headers: {
-                'Content-Type': 'application/json'
-            },
-		})).json();
+        const location = (await fetch("http://128.180.206.51:3000/api/getLocation"));
         let distance = Math.sqrt(Math.pow((cord[0] - location[0]), 2) + Math.pow((cord[1] - location[1]), 2));
-		const nameNumber = await (await fetch("http://128.180.206.51:3000/api/getNameNumber", {
-			headers: {
-                'Content-Type': 'application/json'
-            },
-		})).json();
+		const nameNumber = (await fetch("http://128.180.206.51:3000/api/getNameNumber"));
         await fetch("http://128.180.206.51:3000/api/update", {
             body: JSON.stringify({"device": Device.deviceName, "name": nameNumber[0], "distance": distance, "battery": bat, "number": nameNumber[1]}),
             method: "POST",
@@ -117,27 +106,13 @@ const List = () => {
                 'Content-Type': 'application/json'
             },
         });
+		console.log("added self");
     }
 
-
-  //this function checks the location and battery of all friends
-  async function checkFriends() {
-
-    //TODO integrate this functionally into the app
-    let distance = Math.sqrt(Math.pow((currentlocation[0] - friendlocation[0]), 2) + Math.pow((currentlocation[1] - friendlocation[1]), 2))
-    //for loop to go through everyones location
-
-  }
-
   useEffect(() => {
-    addSelf()
-
-    return () => clearInterval(interval);
+	const interval = setInterval(() => {addSelf; getUsers; console.log("has run");}, 6000);
+	return () => clearInterval(interval);
   }, []);
-
-
-  setInterval(checkFriends, 300000);
-
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
