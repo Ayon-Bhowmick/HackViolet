@@ -166,7 +166,7 @@ const List = () => {
           data={data}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
-            <Text style={styles.items}>{item.name}       {item.distance}ft        {item.battery}%</Text>
+            <Text key={item.name} style={styles.items}>{item.name}       {item.distance}ft        {item.battery}%</Text>
           )}
         />
       )}
