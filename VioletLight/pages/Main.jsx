@@ -2,6 +2,7 @@ import * as Battery from 'expo-battery';
 import { SafeAreaView, View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import { useState } from 'react';
 import List from './List';
+import SMSForm from './SMSForm';
 
 const Main = () => {
     const [batteryLevel, setBatteryLevel] = useState(null);
@@ -14,7 +15,6 @@ const Main = () => {
     }
 
     const makeGroup = async () => {
-        obj.distance = distance;
         await fetch("http://128.180.206.51:3000/api/makeGroup", {
             body: JSON.stringify({"distance": distance}),
             method: "POST",
@@ -27,6 +27,7 @@ const Main = () => {
 
     const alertFunction = async () =>{
         // ERICK CODE HERE
+
     }
 
     const generateID = async () => {
@@ -153,13 +154,6 @@ const Main = () => {
                 )}
                 {view === "E" && (
                     <>
-                        {/* <Text>group view</Text>
-                        <Button title='End party' onPress={() => setView("A")} title="Done"/>
-
-                        
-                        <TouchableOpacity style={styles.startbtn}  onPress={alertFunction}>
-                        <Text style={styles.startbtnText}>Alert!</Text>
-                    </TouchableOpacity> */}
                         <List />
                     </>
                 

@@ -25,7 +25,8 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "twilio": "^3.73.1"
   },
   "private": true
 }
