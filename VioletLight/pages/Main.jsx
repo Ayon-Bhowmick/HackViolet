@@ -18,7 +18,7 @@ const Main = () => {
 
     const getLocation = async () => {
         getLocationPermission();
-        let location = await Location.getCurrentPositionAsync();
+        const location = await Location.getCurrentPositionAsync();
         let cord = [ location.coords.latitude, location.coords.longitude ];
         return cord;
     }
@@ -32,6 +32,9 @@ const Main = () => {
     const makeGroup = async () => {
         const bat = await getBatteryLevel();
         const loc = await getLocation();
+        await fetch("http://128.180.206.51:3000/api/update", {
+            body: JSON.stringify({"device": Device.deviceName, "name": name, "distance": "0", "battery": bat, "number": phone})
+        });
         await fetch("http://128.180.206.51:3000/api/makeGroup", {
             body: JSON.stringify({"distance": distance, "location": loc}),
             method: "POST",

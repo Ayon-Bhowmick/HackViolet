@@ -90,3 +90,9 @@ export async function getLocation() {
     const temp = await client.execute(["GET", "group"]);
     return JSON.parse(temp.position);
 }
+
+export async function getNameNumber(device) {
+    await connect();
+    const temp = await client.execute(["GET", device]);
+    return [JSON.parse(temp).name, JSON.parse(temp).number];
+}

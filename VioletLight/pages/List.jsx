@@ -1,6 +1,7 @@
 import { getBatteryLevelAsync } from 'expo-battery';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Button, Text, View, Alert } from 'react-native';
+import * as Device from 'expo-device';
 
 export default App = () => {
 
@@ -44,39 +45,32 @@ export default App = () => {
     let percentage = Math.round(battery * 100);
     console.log(percentage);
 
-
-    //get location
-    const location = await Location.getCurrentPositionAync();
-    let cord = [ locatoin.coords.latitude, location.coords.longitude]
-
-  
+    const location = await (await fetch("http://128.180.206.51:3000/api/getLocation")).json();
+  	const current = await Location.getCurrentPositionAsync();
+    const cord = [ current.coords.latitude, current.coords.longitude ];
+	const nameNumber = await (await fetch("http://128.180.206.51:3000/api/getNameNumber", {
+		body: JSON.stringify({"device": Device.deviceName}),
+	})).json();
+	let distance = Math.sqrt(Math.pow((cord[0] - location[0]), 2) + Math.pow((cord[1] - location[1]), 2))
+	
     //send this information to the server
     //find the user based on their device info
     //to a put request to server to update battery percentage
-
+	await fetch("http://128.180.206.51:3000/api/update", {
+		body: JSON.stringify({"device": Device.deviceName, "name": nameNumber[0], "distance": distance, "battery": percentage, "number": nameNumber[1]})
+	});
     
 
   }
-
-  useEffect(() => {
-    checkBatteryLocation()
-    return () => clearInterval(interval);
-  }, []);
-
 
   setInterval(checkBatteryLocation, 60000);
 
   //this function checks the location and battery of all friends
   async function checkFriends() {
 
-
-
-
     //TODO integrate this functionally into the app
     let distance = Math.sqrt(Math.pow((currentlocation[0] - friendlocation[0]), 2) + Math.pow((currentlocation[1] - friendlocation[1]), 2))
     //for loop to go through everyones location
-
-
 
   }
 
