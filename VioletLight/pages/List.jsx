@@ -7,8 +7,20 @@ export default App = () => {
 
 
   const alertFunction = async () => {
+
+    //console log that the alert was activated
     console.log("ALERT ACTIVATED")
-    // ERICK CODE HERE
+
+    //get the name of the person sending the alert
+    
+
+    //hard code in a message
+    //fetch the api for twillio
+    //send to each person in the database
+  
+
+    
+
   }
 
   const generateID = async () => {
