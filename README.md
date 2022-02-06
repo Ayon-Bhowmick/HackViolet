@@ -1,5 +1,5 @@
 ## HackViolet
-### VioletLight
+# VioletLight
 ## Together & Safe
 Blue lights are great on college campuses. But, students spend a lot of time off campus going to parties, exploring town, etc. It can be very scary when you’re with a group of friends and someone goes missing. Especially for women and gender minorities, who are unfortunately targeted. This is where VioletLight comes in. VioletLight is a mobile app that allows users to create groups and keep track of those in their group using geolocation technology. Users select a safe meeting spot as well as the maximum distance they feel comfortable with traveling away from each other. VioletLight will send notification when users become too far from the safe spot or have a low battery charge. It also allows for emergency messages that will alert everyone in the group. While this app was made with women and students in mind, it can also just be generally beneficial and helpful for anyone who may feel unsafe or wants to be more secure and prepared.
 
