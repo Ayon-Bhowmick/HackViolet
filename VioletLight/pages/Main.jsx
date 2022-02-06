@@ -22,6 +22,7 @@ const Main = () => {
                 'Content-Type': 'application/json'
             },
         })
+        setView("E");
     }
 
     const alertFunction = async () =>{
