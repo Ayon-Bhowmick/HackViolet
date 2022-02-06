@@ -11,4 +11,9 @@ We began by coming together and brainstorming app ideas. We had so many great id
 While we all helped each other and switched around tasks, Josh and Tiana worked mainly on the front end and design of the app. Josh started off by using Figma to completely 
 Prototype the layout of our app. Using this as a guide Tiana then coded the general layout of the app and drew out the lamp logo seen on the first two pages. Ayon made the database and the API and hosted the API off his laptop. Erick connected the app to Twilio using the API. 
 
+## Repository
+
+## How to Run
+npm i 
+npm 
 
