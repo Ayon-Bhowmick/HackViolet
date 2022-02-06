@@ -73,8 +73,13 @@ const Main = ( {route, navigation } : any) => {
                     <TouchableOpacity style={styles.inputContainer}>
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='          Enter Your Name' onChange={setName} value={name}/>
+                        placeholder='          Enter Your Name' onChange={setName} />
 
+                        <TextInput 
+                        style={styles.nameInput}
+                        placeholder='  Enter Your Phone Number' onChange={setName} />
+
+                        
                         <TextInput 
                         style={styles.nameInput}
                         placeholder='         Enter Max Distance' onChange={setDistance} value={distance} keyboardType="numeric"/>
@@ -94,6 +99,15 @@ const Main = ( {route, navigation } : any) => {
                         <TextInput 
                         style={styles.nameInput}
                         placeholder='          Enter Group ID'/>
+                        
+                        <TextInput 
+                        style={styles.nameInput}
+                        placeholder='          Enter Your Name' onChange={setName} />
+
+                        <TextInput 
+                        style={styles.nameInput}
+                        placeholder='  Enter Your Phone Number' onChange={setName}/>
+
 
                         <TouchableOpacity style={styles.create}  onPress={() => setView("E")} title="Join Group">
                             <Text style={styles.textCreate}>Join</Text>
