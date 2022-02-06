@@ -15,9 +15,10 @@ const Main = () => {
     }
 
     const makeGroup = async () => {
+        let obj = {}
         obj.distance = distance;
         await fetch("http://128.180.206.51:3000/api/makeGroup", {
-            body: JSON.stringify({"distance": distance}),
+            body: JSON.stringify(obj),
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -155,13 +156,6 @@ const Main = () => {
                 )}
                 {view === "E" && (
                     <>
-                        {/* <Text>group view</Text>
-                        <Button title='End party' onPress={() => setView("A")} title="Done"/>
-
-                        
-                        <TouchableOpacity style={styles.startbtn}  onPress={alertFunction}>
-                        <Text style={styles.startbtnText}>Alert!</Text>
-                    </TouchableOpacity> */}
                         <List />
                     </>
                 
