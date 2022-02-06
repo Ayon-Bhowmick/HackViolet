@@ -14,8 +14,6 @@ const Main = () => {
     }
 
     const makeGroup = async () => {
-        console.log(name);
-        let obj = {};
         obj.distance = distance;
         await fetch("http://128.180.206.51:3000/api/makeGroup", {
             body: JSON.stringify({"distance": distance}),
@@ -24,6 +22,7 @@ const Main = () => {
                 'Content-Type': 'application/json'
             },
         })
+        setView("E");
     }
 
     const alertFunction = async () =>{
