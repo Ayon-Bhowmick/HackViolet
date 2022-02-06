@@ -2,7 +2,7 @@ import * as Battery from 'expo-battery';
 import { SafeAreaView, View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import { useState } from 'react';
 import List from './List';
-import 
+import SMSForm from './SMSForm';
 
 const Main = () => {
     const [batteryLevel, setBatteryLevel] = useState(null);

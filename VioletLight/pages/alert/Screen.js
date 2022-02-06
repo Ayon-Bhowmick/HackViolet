@@ -7,7 +7,6 @@ class Screen extends Component {
     return (
       <div className="Screen">
         <header className="Screebn-header">
-
           <SMSForm />
         </header>
       </div>
