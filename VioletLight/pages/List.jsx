@@ -1,8 +1,34 @@
 import { getBatteryLevelAsync } from 'expo-battery';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Text, View, Alert } from 'react-native';
+// import Geolocation from '@react-native-community/geolocation';
+// import RNLocation from 'react-native-location';
+
+
 
 export default App = () => {
+
+
+RNLocation.configure({
+ distanceFilter: null
+})
+
+const permissionHandle = async () => {
+
+  console.log('here')
+
+
+  let permission = await RNLocation.checkPermission({
+    ios: 'whenInUse', // or 'always'
+    android: {
+      detail: 'coarse' // or 'fine'
+    }
+  });
+
+  console.log('here2')
+  console.log(permission)
+
+}
 
 const alertFunction = async () =>{
     // ERICK CODE HERE
@@ -42,7 +68,14 @@ setInterval(checkBatteryLocation, 60000);
 //this function checks the location and battery of all friends
 async function checkFriends() {
 
-    console.log("done")
+  // await fetch("http://128.180.206.51:3000/api/makeGroup", {
+
+
+  // })
+
+  //for loop to go through everyones location
+
+  
   
 }
 
