@@ -1,5 +1,5 @@
 import * as Battery from 'expo-battery';
-import { SafeAreaView, View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { SafeAreaView, View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import { useState } from 'react';
 import List from './List';
 
@@ -35,7 +35,14 @@ const Main = () => {
             <View style={styles.container}>
                 {view === "A" && (
                 <>
+                    
                     <Text style={styles.violetlight}>VioletLight</Text>
+
+                    <Image 
+                        style ={{width: 450, height:750, top: 70, left: -20}}
+                        source = {require('../assets/logoVioletLight.png')}
+                    />
+                    
                     <TouchableOpacity style={styles.startbtn}  onPress={() => setView("B")} title="Start">
                         <Text style={styles.startbtnText}>start</Text>
                     </TouchableOpacity>
@@ -46,14 +53,21 @@ const Main = () => {
                 )}
                 {view === "B" && (
                 <>
+                   
                     <Text style={styles.header}>VioletLight</Text>
+
+                    <Image 
+                        style ={{width: 300, height:400,  top: 60, left: 10}}
+                        source = {require('../assets/logoCircle3.png')}
+                    />
+
                     <TouchableOpacity style={styles.createGrp}  onPress={() => setView("C")} title="Create Group">
                         <Text style={styles.textBtn}>Create Group</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.joinGrp}  onPress={() => setView("D")} title="Join Group">
                         <Text style={styles.textBtn}>Join Group</Text>
                     </TouchableOpacity>
-                    
+                                    
                 </>
                 )}
                 {view === "C" && (
@@ -62,7 +76,18 @@ const Main = () => {
                     
                     <TouchableOpacity style={styles.inputContainer}>
                         <TextInput 
+<<<<<<< HEAD
                                     style={styles.nameInput} placeholder='          Enter Your Name' onChangeText={setName} value={name}/>
+=======
+                        style={styles.nameInput}
+                        placeholder='          Enter Your Name' onChange={setName} />
+
+                        <TextInput 
+                        style={styles.nameInput}
+                        placeholder='  Enter Your Phone Number' onChange={setName} />
+
+                        
+>>>>>>> 5d291bab2aa36c44912729c2edc06224010289ed
                         <TextInput 
                                     style={styles.nameInput}
                                     placeholder='         Enter Max Distance' onChangeText={setDistance} value={distance} keyboardType="numeric"/>
@@ -82,6 +107,15 @@ const Main = () => {
                         <TextInput 
                         style={styles.nameInput}
                         placeholder='          Enter Group ID'/>
+                        
+                        <TextInput 
+                        style={styles.nameInput}
+                        placeholder='          Enter Your Name' onChange={setName} />
+
+                        <TextInput 
+                        style={styles.nameInput}
+                        placeholder='  Enter Your Phone Number' onChange={setName}/>
+
 
                         <TouchableOpacity style={styles.create}  onPress={() => setView("E")} title="Join Group">
                             <Text style={styles.textCreate}>Join</Text>
@@ -155,7 +189,7 @@ const styles = StyleSheet.create({
         width: 300,
         borderRadius: 10,
         backgroundColor: 'rgb(220, 157, 250)',
-        bottom: -450,
+        bottom: -30,
         paddingTop:15,
         paddingBottom:15,
 
@@ -165,7 +199,7 @@ const styles = StyleSheet.create({
         width: 300,
         borderRadius: 10,
         backgroundColor: 'rgb(220, 157, 250)',
-        bottom: -500,
+        bottom: -80,
         paddingTop:15,
         paddingBottom:15,
       
