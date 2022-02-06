@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Button, Text, View, Alert } from 'react-native';
-import * as Device from 'expo-device';
-
-export default App = () => {
-
-
-
+import { ActivityIndicator, StyleSheet, Button, Alert, FlatList, Text, View } from 'react-native';
+ 
+const List = () => {
   const alertFunction = async () => {
 
     //console log that the alert was activated
@@ -38,7 +34,7 @@ export default App = () => {
 
 
   const checkBatteryLocation = async () => {
-
+	setInterval(checkBatteryLocation, 60000);
     //check the current battery of the device
     let battery = await getBatteryLevelAsync();
     let percentage = Math.round(battery * 100);
@@ -50,7 +46,7 @@ export default App = () => {
 	const nameNumber = await (await fetch("http://128.180.206.51:3000/api/getNameNumber", {
 		body: JSON.stringify({"device": Device.deviceName}),
 	})).json();
-	let distance = Math.sqrt(Math.pow((cord[0] - location[0]), 2) + Math.pow((cord[1] - location[1]), 2))
+	let distance = Math.sqrt(Math.pow((cord[0] - location[0]), 2) + Math.pow((cord[1] - location[1]), 2));
 	
     //send this information to the server
     //find the user based on their device info
@@ -74,7 +70,7 @@ export default App = () => {
   }
 
   useEffect(() => {
-    checkFriends()
+    checkBatteryLocation()
 
     return () => clearInterval(interval);
   }, []);
@@ -83,10 +79,9 @@ export default App = () => {
   setInterval(checkFriends, 300000);
 
 
-const List = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-
+ 
   const getUsers = async () => {
      try {
       const response = await fetch('http://128.180.206.51:3000/api/getEveryone');
@@ -98,14 +93,14 @@ const List = () => {
       setLoading(false);
     }
   }
-
+ 
   useEffect(() => {
     getUsers();
   }, []);
-
+ 
   return (
     <View style={{ flex: 1, padding: 24 }}>
-      {isLoading ? <ActivityIndicator /> : (
+      {isLoading ? <ActivityIndicator/> : (
         <FlatList
           data={data}
           keyExtractor={({ id }, index) => id}
@@ -116,8 +111,7 @@ const List = () => {
       )}
 
 
-
-      <Button
+<Button
         color="red"
         title="Emergency"
         // onPress={() => alert('Button Tapped')} // generic alert
@@ -127,17 +121,16 @@ const List = () => {
         ])}
 
       />
-
     </View>
-
-    
+ 
+   
   );
-
-  
+ 
+ 
 };
-
+ 
 const styles = StyleSheet.create({
-  items: { 
+  items: {
     backgroundColor:'#FFF',
     padding: 0,
     margin: 1,
