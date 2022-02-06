@@ -8,10 +8,18 @@ const Main = ( {route, navigation } : any) => {
     const [batteryLevel, setBatteryLevel] = useState(null);
     const [text, setText] = useState('');
     const [name, setName] = useState('bob');
+    const [distance, setDistance] = useState("");
 
     const getBatteryLevel = async () => {
         const { level } = await Battery.getBatteryLevelAsync();
         setBatteryLevel(level);
+    }
+
+    const makeGroup = async () => {
+        const id = await fetch('128.180.206.51:3000/api/makeGroup', {
+            method: 'POST',
+            body: JSON.stringify({distance}),
+        });
     }
 
     const alertFunction = async () =>{
@@ -65,12 +73,12 @@ const Main = ( {route, navigation } : any) => {
                     <TouchableOpacity style={styles.inputContainer}>
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='          Enter Your Name'/>
+                        placeholder='          Enter Your Name' onChange={setName} value={name}/>
 
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='         Enter Max Distance'/>
-                        <TouchableOpacity style={styles.create}  onPress={() => setView("E")} title="Join Group">
+                        placeholder='         Enter Max Distance' onChange={setDistance} value={distance} keyboardType="numeric"/>
+                        <TouchableOpacity style={styles.create}  onPress={() => {setView("E"); makeGroup;}} title="Join Group">
                             <Text style={styles.textCreate}>Create</Text>
                         </TouchableOpacity>
                     </TouchableOpacity>
