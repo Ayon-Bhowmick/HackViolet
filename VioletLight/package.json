@@ -10,10 +10,12 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.15.17",
     "events": "^3.3.0",
     "expo": "^44.0.6",
     "expo-battery": "~6.1.0",
     "expo-device": "~4.1.0",
+    "expo-location": "~14.0.1",
     "expo-status-bar": "~1.2.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -23,8 +25,7 @@
     "react-native-web": "0.17.1",
     "redis": "^4.0.3",
     "redis-om": "^0.1.7",
-    "url": "^0.11.0",
-    "expo-location": "~14.0.1"
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

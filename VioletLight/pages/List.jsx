@@ -3,9 +3,36 @@ import { ActivityIndicator, StyleSheet, Button, Alert, FlatList, Text, View ,Tou
 import * as Device from 'expo-device';
 import * as Battery from 'expo-battery';
 import * as Location from 'expo-location';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
  
 const List = () => {
+	const [name, setName] = useState(async () => {getName});
+	const [number, setNumber] = useState(async () => {getPhone});
+	const [loca, setLoca] = useState(async () => {fetch("http://128.180.206.51:3000/api/getLocation")});
+
+	const getPhone = async () => {
+		const phone = await (await fetch("http://128.180.206.51:3000/api/getNumber", {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({"device": Device.deviceName})
+		})).json();
+		return phone;
+	}
+
+	const getName = async () => {
+		const name = await (await fetch("http://128.180.206.51:3000/api/getName", {
+			method: "POST",
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({"device": Device.deviceName})
+		})).json();
+		return name;
+	}
+
   const alertFunction = async () => {
 
     //put the whole thing in a for loop and send to each person
@@ -15,34 +42,36 @@ const List = () => {
 
     //get the name of the person sending the alert
     let name = 'bob';
-    let message = {to:"3475268828", message: `${name} has sent an EMERGENCY ALERT!!!`};
+    let sendtxt ={
+      message: {
+        to: '4248858411',
+        body: `${name} has sent an EMERGENCY ALERT!!!`
+      },
+	  submitting: false,
+	  error: false
+    };
 
-    //fetch the api for twillio
-    await fetch('/api/messages', {
+    await fetch('http://128.180.206.51:3000/api/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(message),
+      body: JSON.stringify(sendtxt.message),
     })
       .then(res => res.json())
       .then(data => {
+        //just reset this.state to blank
         if (data.success) {
-          this.setState({
-            error: false,
-            submitting: false,
-            message: {
-              to: '',
-              body: ''
-            }
-          });
+			console.log("it was successful")
+			error = false;
+			submitting = true;
         } else {
-          this.setState({
-            error: true,
-            submitting: false
-          });
+          console.log("There was an error");
+		  error = true;
+		  submitting = false;
         }
       })
+  }
 
     //    constructor(props) {
     //      console.log("on costruct")
@@ -66,7 +95,7 @@ const List = () => {
 
     
 
-  }
+  
 
   const getLocation = async () => {
         const location = await Location.getCurrentPositionAsync();
@@ -96,11 +125,11 @@ const List = () => {
   const addSelf = async () => {
         const bat = await getBatteryLevel();
         const cord = await getLocation();
-        const location = (await fetch("http://128.180.206.51:3000/api/getLocation"));
-        let distance = Math.sqrt(Math.pow((cord[0] - location[0]), 2) + Math.pow((cord[1] - location[1]), 2));
-		const nameNumber = (await fetch("http://128.180.206.51:3000/api/getNameNumber"));
+        // const location = (await fetch("http://128.180.206.51:3000/api/getLocation"));
+        const distance = Math.sqrt(Math.pow((cord[0] - loca[0]), 2) + Math.pow((cord[1] - loca[1]), 2));
+		// const nameNumber = (await fetch("http://128.180.206.51:3000/api/getNameNumber"));
         await fetch("http://128.180.206.51:3000/api/update", {
-            body: JSON.stringify({"device": Device.deviceName, "name": nameNumber[0], "distance": distance, "battery": bat, "number": nameNumber[1]}),
+            body: JSON.stringify({"device": Device.deviceName, "name": name, "distance": distance, "battery": bat, "number": number}),
             method: "POST",
 			headers: {
                 'Content-Type': 'application/json'
@@ -109,10 +138,10 @@ const List = () => {
 		console.log("added self");
     }
 
-  useEffect(() => {
-	const interval = setInterval(() => {addSelf; getUsers; console.log("has run");}, 6000);
-	return () => clearInterval(interval);
-  }, []);
+//   useEffect(() => {
+// 	const interval = setInterval(() => {addSelf(); getUsers(); console.log("has run");}, 10000);
+// 	return () => clearInterval(interval);
+//   }, []);
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);

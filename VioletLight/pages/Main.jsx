@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import List from './List';
 import * as Location from 'expo-location';
 import * as Device from 'expo-device';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Main = () => {
     const [name, setName] = useState('');
@@ -48,6 +49,12 @@ const Main = () => {
         const cord = await getLocation();
         const location = await (await fetch("http://128.180.206.51:3000/api/getLocation")).json();
         let distance = Math.sqrt(Math.pow((cord[0] - location[0]), 2) + Math.pow((cord[1] - location[1]), 2));
+        try {
+            await AsyncStorage.setItem("name", name);
+            await AsyncStorage.setItem("phone", phone);
+        } catch (error) {
+            console.log(error);
+        }
         await fetch("http://128.180.206.51:3000/api/update", {
             body: JSON.stringify({"device": Device.deviceName, "name": name, "distance": distance, "battery": bat, "number": phone}),
             method: "POST",
@@ -79,7 +86,7 @@ const Main = () => {
 
     }
 
-    const [view, setView] = useState("E");
+    const [view, setView] = useState("A");
 
     useEffect(() => {
         getLocationPermission();
