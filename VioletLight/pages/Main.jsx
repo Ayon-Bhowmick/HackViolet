@@ -3,11 +3,9 @@ import { SafeAreaView, View, Text, TextInput, Button, StyleSheet, TouchableOpaci
 import { useState } from 'react';
 import List from './List';
 
-
-const Main = ( {route, navigation } : any) => {
+const Main = () => {
     const [batteryLevel, setBatteryLevel] = useState(null);
-    const [text, setText] = useState('');
-    const [name, setName] = useState('bob');
+    const [name, setName] = useState('');
     const [distance, setDistance] = useState("");
 
     const getBatteryLevel = async () => {
@@ -16,15 +14,52 @@ const Main = ( {route, navigation } : any) => {
     }
 
     const makeGroup = async () => {
-        const id = await fetch('128.180.206.51:3000/api/makeGroup', {
-            method: 'POST',
-            body: JSON.stringify({distance}),
-        });
+        console.log(name);
+        let obj = {};
+        obj.distance = distance;
+        await fetch("http://128.180.206.51:3000/api/makeGroup", {
+            body: JSON.stringify({"distance": distance}),
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
     }
 
     const alertFunction = async () =>{
         // ERICK CODE HERE
     }
+
+    const generateID = async () => {
+        //Generate a random number XXXX
+        //compare this generated number with all ID's currently in the database
+        //if this number matches any one of them generate a new random number and redo
+        //if this number does not match any of them then set this number to be the meeting ID 
+        //create a new group on server with this meeting ID and display
+        
+    }
+
+    const checkLocation = async () => {
+
+        //check the current location of the device
+        //send this information to the server
+    }
+
+    const checkBattery = async () => {
+
+        //check the current battery of the device
+        //send this information to the server
+    }
+
+    const checkFriends = async () => {
+
+        //pull from server all info about friends in party
+        //check if any of the values go outside the constraints
+        //if values exceed constraints then send an alert to the user
+        //if values are okay then display the info in the table
+
+    }
+
     const [view, setView] = useState("A");
 
     return (
@@ -72,6 +107,9 @@ const Main = ( {route, navigation } : any) => {
                     
                     <TouchableOpacity style={styles.inputContainer}>
                         <TextInput 
+<<<<<<< HEAD
+                                    style={styles.nameInput} placeholder='          Enter Your Name' onChangeText={setName} value={name}/>
+=======
                         style={styles.nameInput}
                         placeholder='          Enter Your Name' onChange={setName} />
 
@@ -80,10 +118,11 @@ const Main = ( {route, navigation } : any) => {
                         placeholder='  Enter Your Phone Number' onChange={setName} />
 
                         
+>>>>>>> 5d291bab2aa36c44912729c2edc06224010289ed
                         <TextInput 
-                        style={styles.nameInput}
-                        placeholder='         Enter Max Distance' onChange={setDistance} value={distance} keyboardType="numeric"/>
-                        <TouchableOpacity style={styles.create}  onPress={() => {setView("E"); makeGroup;}} title="Join Group">
+                                    style={styles.nameInput}
+                                    placeholder='         Enter Max Distance' onChangeText={setDistance} value={distance} keyboardType="numeric"/>
+                        <TouchableOpacity style={styles.create}  onPress={makeGroup} title="Join Group">
                             <Text style={styles.textCreate}>Create</Text>
                         </TouchableOpacity>
                     </TouchableOpacity>
