@@ -1,3 +1,4 @@
+import { getBatteryLevelAsync } from 'expo-battery';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 
@@ -16,26 +17,43 @@ const generateID = async () => {
     
 }
 
-const checkLocation = async () => {
 
-    //check the current location of the device
-    //send this information to the server
-}
-
-const checkBattery = async () => {
+const checkBatteryLocation = async () => {
 
     //check the current battery of the device
+    var battery = await getBatteryLevelAsync();
+    var percentage = Math.round(battery *100);
+    console.log(percentage);
+    
+    //check the current location
+    
+
     //send this information to the server
 }
 
-const checkFriends = async () => {
+useEffect(() => {
+  checkBatteryLocation()
+  return () => clearInterval(interval);
+ }, []);
 
-    //pull from server all info about friends in party
-    //check if any of the values go outside the constraints
-    //if values exceed constraints then send an alert to the user
-    //if values are okay then display the info in the table
 
+setInterval(checkBatteryLocation, 60000);
+
+//this function checks the location and battery of all friends
+async function checkFriends() {
+
+    console.log("done")
+  
 }
+
+useEffect(() => {
+  checkFriends()
+
+  return () => clearInterval(interval);
+ }, []);
+
+
+setInterval(checkFriends, 300000);
 
 
   const [isLoading, setLoading] = useState(true);
