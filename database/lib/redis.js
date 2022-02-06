@@ -51,13 +51,13 @@ export async function getEveryone(device) {
     return data;
 }
 
-export async function makeGroup(distance, position) {
+export async function makeGroup(distance, location) {
     await connect();
     const data = {
         distance: distance,
-        position: position,
+        location: location,
     }
-    await client.execute(["SET", "group", data]);
+    await client.execute(["SET", "group", JSON.stringify(data)]);
 }
 
 export async function getGroup() {
@@ -89,4 +89,10 @@ export async function getLocation() {
     await connect();
     const temp = await client.execute(["GET", "group"]);
     return JSON.parse(temp.position);
+}
+
+export async function getNameNumber(device) {
+    await connect();
+    const temp = await client.execute(["GET", device]);
+    return [JSON.parse(temp).name, JSON.parse(temp).number];
 }

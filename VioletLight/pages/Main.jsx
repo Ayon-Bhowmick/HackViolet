@@ -1,13 +1,27 @@
 import * as Battery from 'expo-battery';
 import { SafeAreaView, View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import List from './List';
-// import SMSForm from './SMSForm';
+import * as Location from 'expo-location';
 
 const Main = () => {
     const [name, setName] = useState('');
     const [distance, setDistance] = useState("");
     const [phone, setPhone] = useState("");
+
+    const getLocationPermission = async () => {
+        let permission = await Location.requestForegroundPermissionsAsync();
+        while (permission.status !== 'granted') {
+            permission = await Location.requestForegroundPermissionsAsync();
+        }
+    }
+
+    const getLocation = async () => {
+        getLocationPermission();
+        const location = await Location.getCurrentPositionAsync();
+        let cord = [ location.coords.latitude, location.coords.longitude ];
+        return cord;
+    }
 
     const getBatteryLevel = async () => {
         const bat = await Battery.getBatteryLevelAsync();
@@ -17,10 +31,12 @@ const Main = () => {
 
     const makeGroup = async () => {
         const bat = await getBatteryLevel();
-        
-
+        const loc = await getLocation();
+        await fetch("http://128.180.206.51:3000/api/update", {
+            body: JSON.stringify({"device": Device.deviceName, "name": name, "distance": "0", "battery": bat, "number": phone})
+        });
         await fetch("http://128.180.206.51:3000/api/makeGroup", {
-            body: JSON.stringify({"distance": distance}),
+            body: JSON.stringify({"distance": distance, "location": loc}),
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -29,6 +45,17 @@ const Main = () => {
         setView("E");
     }
 
+    const generateID = async () => {
+        //Generate a random number XXXX
+        //compare this generated number with all ID's currently in the database
+        //if this number matches any one of them generate a new random number and redo
+        //if this number does not match any of them then set this number to be the meeting ID 
+        //create a new group on server with this meeting ID and display
+        
+    }
+
+        //check the current location of the device
+        //send this information to the server
     const joinGroup = async () => {
         setView("E");
     }
@@ -38,10 +65,11 @@ const Main = () => {
 
     }
 
-
-  
-
     const [view, setView] = useState("A");
+
+    useEffect(() => {
+        getLocationPermission();
+    }, []);
 
     return (
             <View style={styles.container}>

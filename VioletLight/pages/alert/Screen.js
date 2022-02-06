@@ -6,7 +6,7 @@ class Screen extends Component {
   render() {
     return (
       <div className="Screen">
-        <header className="Screebn-header">
+        <header className="Screen-header">
           <SMSForm />
         </header>
       </div>

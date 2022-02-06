@@ -3,3 +3,9 @@
     <key>NSAllowsArbitraryLoads</key>
     <true/>
 </dict>
+<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>Allow Violet Light to use your location</string>
+<key>NSLocationAlwaysUsageDescription</key>
+<string>Allow Violet Lightto use your location</string>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Allow Violet Light to use your location</string>
