@@ -13,10 +13,13 @@ While we all helped each other and switched around tasks, Josh and Tiana worked 
 Prototype the layout of our app. Using this as a guide Tiana then coded the general layout of the app and drew out the lamp logo seen on the first two pages. Ayon made the database and the API and hosted the API off his laptop. Erick connected the app to Twilio using the API. 
 
 ### How to Run
-* npm i 
-* npm run
+* cd database
+* npm i
 * npm run dev
-* scan the QR code in the terminal with Phone
+* cd ../VioletLight
+* npm i
+* npm start
+* scan the QR code in the terminal with phone
 ### Team Members:
 1. Ayon Bhowmick
 2. Tiana Aldroubi
