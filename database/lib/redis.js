@@ -29,7 +29,7 @@ let schema = new Schema(
 
 export async function save(device, name, distance, battery, number) {
     await connect();
-    let data = {
+    const data = {
         name: name,
         distance: distance,
         battery: battery,
@@ -51,9 +51,13 @@ export async function getEveryone(device) {
     return data;
 }
 
-export async function makeGroup(distance) {
+export async function makeGroup(distance, position) {
     await connect();
-    await client.execute(["SET", "group", distance]);
+    const data = {
+        distance: distance,
+        position: position,
+    }
+    await client.execute(["SET", "group", data]);
 }
 
 export async function getGroup() {
@@ -73,4 +77,16 @@ export async function getPhoneNumbers() {
         }
     }
     return data;
+}
+
+export async function getDistance() {
+    await connect();
+    const temp = await client.execute(["GET", "group"]);
+    return JSON.parse(temp.distance);
+}
+
+export async function getLocation() {
+    await connect();
+    const temp = await client.execute(["GET", "group"]);
+    return JSON.parse(temp.position);
 }
