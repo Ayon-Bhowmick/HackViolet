@@ -99,12 +99,23 @@ const List = () => {
   const addSelf = async () => {
         const bat = await getBatteryLevel();
         const cord = await getLocation();
-        const location = await (await fetch("http://128.180.206.51:3000/api/getLocation")).json();
+        const location = await (await fetch("http://128.180.206.51:3000/api/getLocation", {
+			headers: {
+                'Content-Type': 'application/json'
+            },
+		})).json();
         let distance = Math.sqrt(Math.pow((cord[0] - location[0]), 2) + Math.pow((cord[1] - location[1]), 2));
-		const nameNumber = await (await fetch("http://128.180.206.51:3000/api/getNameNumber")).json();
+		const nameNumber = await (await fetch("http://128.180.206.51:3000/api/getNameNumber", {
+			headers: {
+                'Content-Type': 'application/json'
+            },
+		})).json();
         await fetch("http://128.180.206.51:3000/api/update", {
             body: JSON.stringify({"device": Device.deviceName, "name": nameNumber[0], "distance": distance, "battery": bat, "number": nameNumber[1]}),
-            method: "POST"
+            method: "POST",
+			headers: {
+                'Content-Type': 'application/json'
+            },
         });
     }
 

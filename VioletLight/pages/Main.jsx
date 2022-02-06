@@ -31,8 +31,9 @@ const Main = () => {
     }
 
     const makeGroup = async () => {
+        const cord = await getLocation();
         await fetch("http://128.180.206.51:3000/api/makeGroup", {
-            body: JSON.stringify({"distance": distance, "location": loc}),
+            body: JSON.stringify({"distance": distance, "location": cord}),
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -49,7 +50,10 @@ const Main = () => {
         let distance = Math.sqrt(Math.pow((cord[0] - location[0]), 2) + Math.pow((cord[1] - location[1]), 2));
         await fetch("http://128.180.206.51:3000/api/update", {
             body: JSON.stringify({"device": Device.deviceName, "name": name, "distance": distance, "battery": bat, "number": phone}),
-            method: "POST"
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
         });
         console.log("added self");
     }
@@ -66,8 +70,8 @@ const Main = () => {
         //check the current location of the device
         //send this information to the server
     const joinGroup = async () => {
-        await addSelf();
-        setView("E");
+        await addSelf().then(() => {setView("E")});
+        // setView("E");
     }
 
     const alertFunction = async () =>{
