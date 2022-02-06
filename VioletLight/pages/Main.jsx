@@ -1,5 +1,5 @@
 import * as Battery from 'expo-battery';
-import { SafeAreaView, View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { SafeAreaView, View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import { useState } from 'react';
 import List from './List';
 
@@ -23,7 +23,14 @@ const Main = ( {route, navigation } : any) => {
             <View style={styles.container}>
                 {view === "A" && (
                 <>
+                    
                     <Text style={styles.violetlight}>VioletLight</Text>
+
+                    <Image 
+                        style ={{width: 450, height:750, top: 70, left: -20}}
+                        source = {require('../assets/logoVioletLight.png')}
+                    />
+                    
                     <TouchableOpacity style={styles.startbtn}  onPress={() => setView("B")} title="Start">
                         <Text style={styles.startbtnText}>start</Text>
                     </TouchableOpacity>
@@ -34,14 +41,21 @@ const Main = ( {route, navigation } : any) => {
                 )}
                 {view === "B" && (
                 <>
+                   
                     <Text style={styles.header}>VioletLight</Text>
+
+                    <Image 
+                        style ={{width: 300, height:400,  top: 60, left: 10}}
+                        source = {require('../assets/logoCircle3.png')}
+                    />
+
                     <TouchableOpacity style={styles.createGrp}  onPress={() => setView("C")} title="Create Group">
                         <Text style={styles.textBtn}>Create Group</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.joinGrp}  onPress={() => setView("D")} title="Join Group">
                         <Text style={styles.textBtn}>Join Group</Text>
                     </TouchableOpacity>
-                    
+                                    
                 </>
                 )}
                 {view === "C" && (
@@ -145,7 +159,7 @@ const styles = StyleSheet.create({
         width: 300,
         borderRadius: 10,
         backgroundColor: 'rgb(220, 157, 250)',
-        bottom: -450,
+        bottom: -30,
         paddingTop:15,
         paddingBottom:15,
 
@@ -155,7 +169,7 @@ const styles = StyleSheet.create({
         width: 300,
         borderRadius: 10,
         backgroundColor: 'rgb(220, 157, 250)',
-        bottom: -500,
+        bottom: -80,
         paddingTop:15,
         paddingBottom:15,
       
