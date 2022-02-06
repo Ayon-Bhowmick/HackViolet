@@ -136,7 +136,7 @@ const List = () => {
   return (
     <>
     <Text style={styles.header}>VioletLight</Text>
-    <View style={{ flex: 1, padding: 24 , top: 30}}>
+    <View style={{ flex: 1, padding: 24 , top: 70}}>
       
       <Text style={styles.numID}>ID: {Math.floor(100000 + Math.random() * 900000)}</Text>      
       {isLoading ? <ActivityIndicator /> : (
@@ -149,6 +149,13 @@ const List = () => {
         />
       )}
 
+     <TouchableOpacity style={styles.btn}  onPress={() => alert('Button Tapped')} // generic alert
+        onPress={() => Alert.alert("Are you sure you want to send alert?", " ", [
+          { text: "No", onPress: () => console.log("No") },
+          { text: "Yes", onPress: () => { alertFunction() } },
+        ])} title="Finish">
+                        <Text style={styles.finishTxt}>X finish</Text>
+    </TouchableOpacity>
 
     <TouchableOpacity style={styles.alertbtn}  onPress={() => alert('Button Tapped')} // generic alert
         onPress={() => Alert.alert("Are you sure you want to send alert?", " ", [
@@ -181,7 +188,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 48,
     color: '#fff',
-    textAlign: 'center',
+    textAlign: 'center'
+    
 
   },
   items: {
@@ -203,8 +211,8 @@ const styles = StyleSheet.create({
 
     alertbtn: {
       backgroundColor: 'red',
-      bottom: 100,
-      left: 50,
+      bottom: 200,
+      left: 60,
       width: 170,
       height: 80,
       borderRadius:10
@@ -218,6 +226,22 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       top: 20
 
+    },
+
+    btn: {
+      bottom: 780,
+      left: 260,
+      backgroundColor: 'rgb(143, 112, 250)',
+      width: 75,
+      padding: 10,
+      borderRadius: 10,
+
+    },
+
+    finishTxt:{
+      fontSize: 16,
+
     }
+
 });
 export default List;

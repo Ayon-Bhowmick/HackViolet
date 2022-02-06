@@ -79,7 +79,7 @@ const Main = () => {
 
     }
 
-    const [view, setView] = useState("E");
+    const [view, setView] = useState("A");
 
     useEffect(() => {
         getLocationPermission();
