@@ -54,3 +54,9 @@ export async function makeGroup(distance) {
     await connect();
     await client.execute(["SET", "group", distance]);
 }
+
+export async function getGroup() {
+    await connect();
+    let data = await client.execute(["GET", "group"]);
+    return data;
+}
