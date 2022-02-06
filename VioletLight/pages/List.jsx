@@ -41,11 +41,10 @@ const List = () => {
     console.log("ALERT ACTIVATED")
 
     //get the name of the person sending the alert
-    let name = 'bob';
     let sendtxt ={
       message: {
         to: '4248858411',
-        body: `${name} has sent an EMERGENCY ALERT!!!`
+        body: 'An EMERGENCY ALERT has been sent!!! Please go to your safe location'
       },
 	  submitting: false,
 	  error: false
