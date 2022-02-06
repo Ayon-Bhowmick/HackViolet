@@ -1,4 +1,3 @@
-import { getBatteryLevelAsync } from 'expo-battery';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Button, Text, View, Alert } from 'react-native';
 import * as Device from 'expo-device';
@@ -84,14 +83,15 @@ export default App = () => {
   setInterval(checkFriends, 300000);
 
 
+const List = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
-  const getMovies = async () => {
-    try {
-      const response = await fetch('https://reactnative.dev/movies.json');
+  const getUsers = async () => {
+     try {
+      const response = await fetch('http://128.180.206.51:3000/api/getEveryone');
       const json = await response.json();
-      setData(json.movies);
+      setData(json);
     } catch (error) {
       console.error(error);
     } finally {
@@ -100,7 +100,7 @@ export default App = () => {
   }
 
   useEffect(() => {
-    getMovies();
+    getUsers();
   }, []);
 
   return (
@@ -110,7 +110,7 @@ export default App = () => {
           data={data}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
-            <Text>{item.title}, {item.releaseYear}</Text>
+            <Text style={styles.items}>{item.name}   {item.distance}   {item.battery}</Text>
           )}
         />
       )}
@@ -129,5 +129,22 @@ export default App = () => {
       />
 
     </View>
+
+    
   );
+
+  
 };
+
+const styles = StyleSheet.create({
+  items: { 
+    backgroundColor:'#FFF',
+    padding: 0,
+    margin: 1,
+    fontSize: 36,
+    height: 44,
+    width: 300,
+    textAlign: 'center',
+  },
+});
+export default List;
