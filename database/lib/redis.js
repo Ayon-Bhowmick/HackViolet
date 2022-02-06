@@ -41,9 +41,15 @@ export async function getEveryone(device) {
     await connect();
     let data = [];
     const keys = await client.execute(["KEYS", "*"]);
-    for (let key of keys) {
-        if (key != device) {
-            data.push(await client.execute(["GET", key]));
+    for (let x = 0; x < keys.length; x++) {
+        if (keys[x] != device && keys[x] != "group") {
+            data.push(await client.execute(["GET", keys[x]]));
         }
     }
+    return data;
+}
+
+export async function makeGroup(distance) {
+    await connect();
+    await client.execute(["SET", "group", distance]);
 }

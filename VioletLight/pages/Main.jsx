@@ -1,16 +1,25 @@
 import * as Battery from 'expo-battery';
-import { SafeAreaView, View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { SafeAreaView, View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import { useState } from 'react';
+import List from './List';
 
 
 const Main = ( {route, navigation } : any) => {
     const [batteryLevel, setBatteryLevel] = useState(null);
     const [text, setText] = useState('');
     const [name, setName] = useState('bob');
+    const [distance, setDistance] = useState("");
 
     const getBatteryLevel = async () => {
         const { level } = await Battery.getBatteryLevelAsync();
         setBatteryLevel(level);
+    }
+
+    const makeGroup = async () => {
+        const id = await fetch('128.180.206.51:3000/api/makeGroup', {
+            method: 'POST',
+            body: JSON.stringify({distance}),
+        });
     }
 
     const alertFunction = async () =>{
@@ -22,7 +31,14 @@ const Main = ( {route, navigation } : any) => {
             <View style={styles.container}>
                 {view === "A" && (
                 <>
+                    
                     <Text style={styles.violetlight}>VioletLight</Text>
+
+                    <Image 
+                        style ={{width: 450, height:750, top: 70, left: -20}}
+                        source = {require('../assets/logoVioletLight.png')}
+                    />
+                    
                     <TouchableOpacity style={styles.startbtn}  onPress={() => setView("B")} title="Start">
                         <Text style={styles.startbtnText}>start</Text>
                     </TouchableOpacity>
@@ -33,14 +49,21 @@ const Main = ( {route, navigation } : any) => {
                 )}
                 {view === "B" && (
                 <>
+                   
                     <Text style={styles.header}>VioletLight</Text>
+
+                    <Image 
+                        style ={{width: 300, height:400,  top: 60, left: 10}}
+                        source = {require('../assets/logoCircle3.png')}
+                    />
+
                     <TouchableOpacity style={styles.createGrp}  onPress={() => setView("C")} title="Create Group">
                         <Text style={styles.textBtn}>Create Group</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.joinGrp}  onPress={() => setView("D")} title="Join Group">
                         <Text style={styles.textBtn}>Join Group</Text>
                     </TouchableOpacity>
-                    <Button title='Back' onPress={() => setView("A")} title="Back"/>
+                                    
                 </>
                 )}
                 {view === "C" && (
@@ -50,12 +73,17 @@ const Main = ( {route, navigation } : any) => {
                     <TouchableOpacity style={styles.inputContainer}>
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='          Enter Your Name'/>
+                        placeholder='          Enter Your Name' onChange={setName} />
 
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='         Enter Max Distance'/>
-                        <TouchableOpacity style={styles.create}  onPress={() => setView("E")} title="Join Group">
+                        placeholder='  Enter Your Phone Number' onChange={setName} />
+
+                        
+                        <TextInput 
+                        style={styles.nameInput}
+                        placeholder='         Enter Max Distance' onChange={setDistance} value={distance} keyboardType="numeric"/>
+                        <TouchableOpacity style={styles.create}  onPress={() => {setView("E"); makeGroup;}} title="Join Group">
                             <Text style={styles.textCreate}>Create</Text>
                         </TouchableOpacity>
                     </TouchableOpacity>
@@ -67,21 +95,38 @@ const Main = ( {route, navigation } : any) => {
                 {view === "D" && (
                 <>
                     <Text style={styles.header}>VioletLight</Text>
-                    <Text>enter ID</Text>
-                    <Button title='Done' onPress={() => setView("E")} title="Start"/>
+                    <TouchableOpacity style={styles.inputContainer}>
+                        <TextInput 
+                        style={styles.nameInput}
+                        placeholder='          Enter Group ID'/>
+                        
+                        <TextInput 
+                        style={styles.nameInput}
+                        placeholder='          Enter Your Name' onChange={setName} />
+
+                        <TextInput 
+                        style={styles.nameInput}
+                        placeholder='  Enter Your Phone Number' onChange={setName}/>
+
+
+                        <TouchableOpacity style={styles.create}  onPress={() => setView("E")} title="Join Group">
+                            <Text style={styles.textCreate}>Join</Text>
+                        </TouchableOpacity>
+                    </TouchableOpacity>
                 </>
                 
 
                 )}
                 {view === "E" && (
                     <>
-                        <Text>group view</Text>
+                        {/* <Text>group view</Text>
                         <Button title='End party' onPress={() => setView("A")} title="Done"/>
 
                         
                         <TouchableOpacity style={styles.startbtn}  onPress={alertFunction}>
                         <Text style={styles.startbtnText}>Alert!</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
+                        <List />
                     </>
                 
                 )}
@@ -136,7 +181,7 @@ const styles = StyleSheet.create({
         width: 300,
         borderRadius: 10,
         backgroundColor: 'rgb(220, 157, 250)',
-        bottom: -450,
+        bottom: -30,
         paddingTop:15,
         paddingBottom:15,
 
@@ -146,7 +191,7 @@ const styles = StyleSheet.create({
         width: 300,
         borderRadius: 10,
         backgroundColor: 'rgb(220, 157, 250)',
-        bottom: -500,
+        bottom: -80,
         paddingTop:15,
         paddingBottom:15,
       
