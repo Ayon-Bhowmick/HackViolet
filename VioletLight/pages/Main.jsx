@@ -51,6 +51,7 @@ const Main = () => {
             body: JSON.stringify({"device": Device.deviceName, "name": name, "distance": distance, "battery": bat, "number": phone}),
             method: "POST"
         });
+        console.log("added self");
     }
 
     const generateID = async () => {

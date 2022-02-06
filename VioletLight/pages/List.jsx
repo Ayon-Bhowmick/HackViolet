@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Button, Alert, FlatList, Text, View } from 'react-native';
+import * as Device from 'expo-device';
+import * as Battery from 'expo-battery';
+import * as Location from 'expo-location';
+
+
  
 const List = () => {
   const alertFunction = async () => {
@@ -19,6 +24,12 @@ const List = () => {
 
   }
 
+  const getLocation = async () => {
+        const location = await Location.getCurrentPositionAsync();
+        let cord = [ location.coords.latitude, location.coords.longitude ];
+        return cord;
+    }
+
   const generateID = async () => {
 
     let ID = Math.floor(Math.random() * 1001);
@@ -31,6 +42,12 @@ const List = () => {
 
     return ID;
   }
+
+  const getBatteryLevel = async () => {
+        const bat = await Battery.getBatteryLevelAsync();
+        const percent = Math.round(bat * 100);
+        return percent;
+    }
 
   setInterval(addSelf, 60000);
 
@@ -46,7 +63,6 @@ const List = () => {
         });
     }
 
-  setInterval(checkBatteryLocation, 60000);
 
   //this function checks the location and battery of all friends
   async function checkFriends() {
