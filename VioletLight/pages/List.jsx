@@ -1,10 +1,12 @@
 import { getBatteryLevelAsync } from 'expo-battery';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Text, View, Alert } from 'react-native';
+import { ActivityIndicator, FlatList, Button, Text, View, Alert } from 'react-native';
 
 export default App = () => {
 
+
 const alertFunction = async () =>{
+  console.log("ALERT ACTIVATED")
     // ERICK CODE HERE
 }
 
@@ -89,12 +91,17 @@ setInterval(checkFriends, 300000);
 
 
 
-      <Button
+  <Button
         color="red"
-        title="Prompt Here"
-        onPress={() => 
-          Alert.prompt("My Title", "My message", text => console.log(text))}
+        title="Emergency"
+        // onPress={() => alert('Button Tapped')} // generic alert
+        onPress={() => Alert.alert("Are you sure you want to send alert?", " ", [
+          {text: "No", onPress: () => console.log("No")},
+          {text: "Yes", onPress: () => {alertFunction()}},
+        ])}
+
       />
+
     </View>
   );
 };
