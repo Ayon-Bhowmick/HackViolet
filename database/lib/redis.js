@@ -43,7 +43,8 @@ export async function getEveryone(device) {
     const keys = await client.execute(["KEYS", "*"]);
     for (let x = 0; x < keys.length; x++) {
         if (keys[x] != device && keys[x] != "group") {
-            data.push(await client.execute(["GET", keys[x]]));
+            let temp = await client.execute(["GET", keys[x]]);
+            data.push(JSON.parse(temp));
         }
     }
     return data;
