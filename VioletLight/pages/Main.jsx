@@ -3,6 +3,7 @@ import { SafeAreaView, View, Text, TextInput, Button, StyleSheet, TouchableOpaci
 import { useState, useEffect } from 'react';
 import List from './List';
 import * as Location from 'expo-location';
+import * as Device from 'expo-device';
 
 const Main = () => {
     const [name, setName] = useState('');
@@ -30,19 +31,27 @@ const Main = () => {
     }
 
     const makeGroup = async () => {
-        const bat = await getBatteryLevel();
-        const loc = await getLocation();
-        await fetch("http://128.180.206.51:3000/api/update", {
-            body: JSON.stringify({"device": Device.deviceName, "name": name, "distance": "0", "battery": bat, "number": phone})
-        });
         await fetch("http://128.180.206.51:3000/api/makeGroup", {
             body: JSON.stringify({"distance": distance, "location": loc}),
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-        })
+        });
+        await addSelf();
         setView("E");
+    }
+
+    const addSelf = async () => {
+        const bat = await getBatteryLevel();
+        const cord = await getLocation();
+        const location = await (await fetch("http://128.180.206.51:3000/api/getLocation")).json();
+        let distance = Math.sqrt(Math.pow((cord[0] - location[0]), 2) + Math.pow((cord[1] - location[1]), 2));
+        await fetch("http://128.180.206.51:3000/api/update", {
+            body: JSON.stringify({"device": Device.deviceName, "name": name, "distance": distance, "battery": bat, "number": phone}),
+            method: "POST"
+        });
+        console.log("added self");
     }
 
     const generateID = async () => {
@@ -57,6 +66,7 @@ const Main = () => {
         //check the current location of the device
         //send this information to the server
     const joinGroup = async () => {
+        await addSelf();
         setView("E");
     }
 
@@ -117,11 +127,11 @@ const Main = () => {
                     <TouchableOpacity style={styles.inputContainer}>
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='          Enter Your Name' onChange={setName}  value={name}/>
+                        placeholder='          Enter Your Name' onChangeText={setName}  value={name}/>
 
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='  Enter Your Phone Number' onChange={setPhone} value={phone}/>
+                        placeholder='  Enter Your Phone Number' onChangeText={setPhone} value={phone} keyboardType="numeric"/>
                         
                         <TextInput 
                                     style={styles.nameInput}
@@ -145,11 +155,11 @@ const Main = () => {
                         
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='          Enter Your Name' onChange={setName} value={name} />
+                        placeholder='          Enter Your Name' onChangeText={setName} value={name} />
 
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='  Enter Your Phone Number' onChange={setPhone} value={phone}/>
+                        placeholder='  Enter Your Phone Number' onChangeText={setPhone} value={phone} keyboardType="numeric"/>
 
 
                         <TouchableOpacity style={styles.create}  onPress={joinGroup} title="Join Group">

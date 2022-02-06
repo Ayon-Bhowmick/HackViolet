@@ -1,12 +1,12 @@
-import { getBatteryLevelAsync } from 'expo-battery';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Button, Text, View, Alert } from 'react-native';
+import { ActivityIndicator, StyleSheet, Button, Alert, FlatList, Text, View } from 'react-native';
 import * as Device from 'expo-device';
+import * as Battery from 'expo-battery';
+import * as Location from 'expo-location';
 
-export default App = () => {
 
-
-
+ 
+const List = () => {
   const alertFunction = async () => {
 
     //put the whole thing in a for loop and send to each person
@@ -69,6 +69,12 @@ export default App = () => {
 
   }
 
+  const getLocation = async () => {
+        const location = await Location.getCurrentPositionAsync();
+        let cord = [ location.coords.latitude, location.coords.longitude ];
+        return cord;
+    }
+
   const generateID = async () => {
 
     let ID = Math.floor(Math.random() * 1001);
@@ -82,33 +88,26 @@ export default App = () => {
     return ID;
   }
 
+  const getBatteryLevel = async () => {
+        const bat = await Battery.getBatteryLevelAsync();
+        const percent = Math.round(bat * 100);
+        return percent;
+    }
 
-  const checkBatteryLocation = async () => {
+  setInterval(addSelf, 60000);
 
-    //check the current battery of the device
-    let battery = await getBatteryLevelAsync();
-    let percentage = Math.round(battery * 100);
-    console.log(percentage);
+  const addSelf = async () => {
+        const bat = await getBatteryLevel();
+        const cord = await getLocation();
+        const location = await (await fetch("http://128.180.206.51:3000/api/getLocation")).json();
+        let distance = Math.sqrt(Math.pow((cord[0] - location[0]), 2) + Math.pow((cord[1] - location[1]), 2));
+		const nameNumber = await (await fetch("http://128.180.206.51:3000/api/getNameNumber")).json();
+        await fetch("http://128.180.206.51:3000/api/update", {
+            body: JSON.stringify({"device": Device.deviceName, "name": nameNumber[0], "distance": distance, "battery": bat, "number": nameNumber[1]}),
+            method: "POST"
+        });
+    }
 
-    const location = await (await fetch("http://128.180.206.51:3000/api/getLocation")).json();
-  	const current = await Location.getCurrentPositionAsync();
-    const cord = [ current.coords.latitude, current.coords.longitude ];
-	const nameNumber = await (await fetch("http://128.180.206.51:3000/api/getNameNumber", {
-		body: JSON.stringify({"device": Device.deviceName}),
-	})).json();
-	let distance = Math.sqrt(Math.pow((cord[0] - location[0]), 2) + Math.pow((cord[1] - location[1]), 2))
-	
-    //send this information to the server
-    //find the user based on their device info
-    //to a put request to server to update battery percentage
-	await fetch("http://128.180.206.51:3000/api/update", {
-		body: JSON.stringify({"device": Device.deviceName, "name": nameNumber[0], "distance": distance, "battery": percentage, "number": nameNumber[1]})
-	});
-    
-
-  }
-
-  setInterval(checkBatteryLocation, 60000);
 
   //this function checks the location and battery of all friends
   async function checkFriends() {
@@ -120,7 +119,7 @@ export default App = () => {
   }
 
   useEffect(() => {
-    checkFriends()
+    addSelf()
 
     return () => clearInterval(interval);
   }, []);
@@ -131,38 +130,38 @@ export default App = () => {
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-
-  const getMovies = async () => {
-    try {
-      const response = await fetch('https://reactnative.dev/movies.json');
+ 
+  const getUsers = async () => {
+     try {
+      const response = await fetch('http://128.180.206.51:3000/api/getEveryone');
       const json = await response.json();
-      setData(json.movies);
+      setData(json);
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
     }
   }
-
+ 
   useEffect(() => {
-    getMovies();
+    getUsers();
   }, []);
-
+ 
   return (
     <View style={{ flex: 1, padding: 24 }}>
-      {isLoading ? <ActivityIndicator /> : (
+      <Text>{Math.floor(100000 + Math.random() * 900000)}</Text>      
+      {isLoading ? <ActivityIndicator/> : (
         <FlatList
           data={data}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
-            <Text>{item.title}, {item.releaseYear}</Text>
+            <Text style={styles.items}>{item.name}       {item.distance}ft        {item.battery}%</Text>
           )}
         />
       )}
 
 
-
-      <Button
+        <Button
         color="red"
         title="Emergency"
         // onPress={() => alert('Button Tapped')} // generic alert
@@ -172,7 +171,21 @@ export default App = () => {
         ])}
 
       />
-
     </View>
+ 
   );
+ 
 };
+ 
+const styles = StyleSheet.create({
+  items: {
+    backgroundColor:'#FFF',
+    padding: 0,
+    margin: 1,
+    fontSize: 24,
+    height: 44,
+    width: 300,
+    textAlign: 'center',
+  },
+});
+export default List;
