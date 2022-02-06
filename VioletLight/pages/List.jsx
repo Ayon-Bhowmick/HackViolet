@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Button, Text, View, Alert } from 'react-native';
-import * as Device from 'expo-device';
-
-export default App = () => {
-
-
-
+import { ActivityIndicator, StyleSheet, Button, Alert, FlatList, Text, View } from 'react-native';
+ 
+const List = () => {
   const alertFunction = async () => {
 
     //console log that the alert was activated
@@ -71,10 +67,9 @@ export default App = () => {
   setInterval(checkFriends, 300000);
 
 
-const List = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-
+ 
   const getUsers = async () => {
      try {
       const response = await fetch('http://128.180.206.51:3000/api/getEveryone');
@@ -86,14 +81,14 @@ const List = () => {
       setLoading(false);
     }
   }
-
+ 
   useEffect(() => {
     getUsers();
   }, []);
-
+ 
   return (
     <View style={{ flex: 1, padding: 24 }}>
-      {isLoading ? <ActivityIndicator /> : (
+      {isLoading ? <ActivityIndicator/> : (
         <FlatList
           data={data}
           keyExtractor={({ id }, index) => id}
@@ -104,8 +99,7 @@ const List = () => {
       )}
 
 
-
-      <Button
+<Button
         color="red"
         title="Emergency"
         // onPress={() => alert('Button Tapped')} // generic alert
@@ -115,17 +109,16 @@ const List = () => {
         ])}
 
       />
-
     </View>
-
-    
+ 
+   
   );
-
-  
+ 
+ 
 };
-
+ 
 const styles = StyleSheet.create({
-  items: { 
+  items: {
     backgroundColor:'#FFF',
     padding: 0,
     margin: 1,
