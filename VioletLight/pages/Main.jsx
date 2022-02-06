@@ -25,6 +25,37 @@ const Main = ( {route, navigation } : any) => {
     const alertFunction = async () =>{
         // ERICK CODE HERE
     }
+
+    const generateID = async () => {
+        //Generate a random number XXXX
+        //compare this generated number with all ID's currently in the database
+        //if this number matches any one of them generate a new random number and redo
+        //if this number does not match any of them then set this number to be the meeting ID 
+        //create a new group on server with this meeting ID and display
+        
+    }
+
+    const checkLocation = async () => {
+
+        //check the current location of the device
+        //send this information to the server
+    }
+
+    const checkBattery = async () => {
+
+        //check the current battery of the device
+        //send this information to the server
+    }
+
+    const checkFriends = async () => {
+
+        //pull from server all info about friends in party
+        //check if any of the values go outside the constraints
+        //if values exceed constraints then send an alert to the user
+        //if values are okay then display the info in the table
+
+    }
+
     const [view, setView] = useState("A");
 
     return (
