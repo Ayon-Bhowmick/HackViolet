@@ -1,4 +1,4 @@
-import { Client, Entity, Schema, Repository } from "redis-om";
+import { Client } from "redis-om";
 
 
 const client = new Client();
@@ -14,18 +14,6 @@ async function connect() {
         }
     }
 }
-
-class Person extends Entity {}
-let schema = new Schema(
-    Person, {
-        name: {type: "string"},
-        distance: {type: "string"},
-        battery: {type: "string"},
-    },
-    {
-        dataStructure: "JSON",
-    }
-);
 
 export async function save(device, name, distance, battery, number) {
     await connect();
@@ -82,13 +70,13 @@ export async function getPhoneNumbers() {
 export async function getDistance() {
     await connect();
     const temp = await client.execute(["GET", "group"]);
-    return JSON.parse(temp.distance);
+    return JSON.parse(temp).distance;
 }
 
 export async function getLocation() {
     await connect();
     const temp = await client.execute(["GET", "group"]);
-    return JSON.parse(temp.position);
+    return JSON.parse(temp).location;
 }
 
 export async function getNameNumber(device) {
