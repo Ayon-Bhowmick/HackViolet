@@ -36,31 +36,19 @@ export default App = () => {
     return ID;
   }
 
+  setInterval(addSelf, 60000);
 
-  const checkBatteryLocation = async () => {
-	setInterval(checkBatteryLocation, 60000);
-    //check the current battery of the device
-    let battery = await getBatteryLevelAsync();
-    let percentage = Math.round(battery * 100);
-    console.log(percentage);
-
-    const location = await (await fetch("http://128.180.206.51:3000/api/getLocation")).json();
-  	const current = await Location.getCurrentPositionAsync();
-    const cord = [ current.coords.latitude, current.coords.longitude ];
-	const nameNumber = await (await fetch("http://128.180.206.51:3000/api/getNameNumber", {
-		body: JSON.stringify({"device": Device.deviceName}),
-	})).json();
-	let distance = Math.sqrt(Math.pow((cord[0] - location[0]), 2) + Math.pow((cord[1] - location[1]), 2));
-	
-    //send this information to the server
-    //find the user based on their device info
-    //to a put request to server to update battery percentage
-	await fetch("http://128.180.206.51:3000/api/update", {
-		body: JSON.stringify({"device": Device.deviceName, "name": nameNumber[0], "distance": distance, "battery": percentage, "number": nameNumber[1]})
-	});
-    
-
-  }
+  const addSelf = async () => {
+        const bat = await getBatteryLevel();
+        const cord = await getLocation();
+        const location = await (await fetch("http://128.180.206.51:3000/api/getLocation")).json();
+        let distance = Math.sqrt(Math.pow((cord[0] - location[0]), 2) + Math.pow((cord[1] - location[1]), 2));
+		const nameNumber = await (await fetch("http://128.180.206.51:3000/api/getNameNumber")).json();
+        await fetch("http://128.180.206.51:3000/api/update", {
+            body: JSON.stringify({"device": Device.deviceName, "name": nameNumber[0], "distance": distance, "battery": bat, "number": nameNumber[1]}),
+            method: "POST"
+        });
+    }
 
   setInterval(checkBatteryLocation, 60000);
 
@@ -74,7 +62,7 @@ export default App = () => {
   }
 
   useEffect(() => {
-    checkBatteryLocation()
+    addSelf()
 
     return () => clearInterval(interval);
   }, []);
