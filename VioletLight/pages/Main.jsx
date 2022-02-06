@@ -1,13 +1,28 @@
 import * as Battery from 'expo-battery';
 import { SafeAreaView, View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Image} from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import List from './List';
+import * as Location from 'expo-location';
 // import SMSForm from './SMSForm';
 
 const Main = () => {
     const [name, setName] = useState('');
     const [distance, setDistance] = useState("");
     const [phone, setPhone] = useState("");
+
+    const getLocationPermission = async () => {
+        let permission = await Location.requestForegroundPermissionsAsync();
+        while (permission.status !== 'granted') {
+            permission = await Location.requestForegroundPermissionsAsync();
+        }
+    }
+
+    const getLocation = async () => {
+        getLocationPermission();
+        let location = await Location.getCurrentPositionAsync();
+        let cord = [ location.coords.latitude, location.coords.longitude ];
+        return cord;
+    }
 
     const getBatteryLevel = async () => {
         const bat = await Battery.getBatteryLevelAsync();
@@ -17,10 +32,9 @@ const Main = () => {
 
     const makeGroup = async () => {
         const bat = await getBatteryLevel();
-        
-
+        const loc = await getLocation();
         await fetch("http://128.180.206.51:3000/api/makeGroup", {
-            body: JSON.stringify({"distance": distance}),
+            body: JSON.stringify({"distance": distance, "location": loc}),
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -38,10 +52,11 @@ const Main = () => {
 
     }
 
-
-  
-
     const [view, setView] = useState("A");
+
+    useEffect(() => {
+        getLocationPermission();
+    }, []);
 
     return (
             <View style={styles.container}>
