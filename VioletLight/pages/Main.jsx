@@ -42,14 +42,6 @@ const Main = () => {
         setView("E");
     }
 
-<<<<<<< HEAD
-    const alertFunction = async () =>{
-        // ERICK CODE HERE
-        <head>
-	<script type="text/javascript" src="Public/Scripts/Screen.js"></script></head>
-
-    }
-
     const generateID = async () => {
         //Generate a random number XXXX
         //compare this generated number with all ID's currently in the database
