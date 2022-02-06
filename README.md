@@ -1,4 +1,4 @@
-### HackViolet
+#### HackViolet
 # VioletLight
 ## Together & Safe
 Blue lights are great on college campuses. But, students spend a lot of time off campus going to parties, exploring town, etc. It can be very scary when you’re with a group of friends and someone goes missing. Especially for women and gender minorities, who are unfortunately targeted. This is where VioletLight comes in. VioletLight is a mobile app that allows users to create groups and keep track of those in their group using geolocation technology. Users select a safe meeting spot as well as the maximum distance they feel comfortable with traveling away from each other. VioletLight will send notification when users become too far from the safe spot or have a low battery charge. It also allows for emergency messages that will alert everyone in the group. While this app was made with women and students in mind, it can also just be generally beneficial and helpful for anyone who may feel unsafe or wants to be more secure and prepared.
@@ -11,9 +11,10 @@ We began by coming together and brainstorming app ideas. We had so many great id
 While we all helped each other and switched around tasks, Josh and Tiana worked mainly on the front end and design of the app. Josh started off by using Figma to completely 
 Prototype the layout of our app. Using this as a guide Tiana then coded the general layout of the app and drew out the lamp logo seen on the first two pages. Ayon made the database and the API and hosted the API off his laptop. Erick connected the app to Twilio using the API. 
 
-## Repository
-
-## How to Run
-npm i 
-npm 
-
+### Repository
+git clone https://github.com/Ayon-Bhowmick/HackViolet.git
+### How to Run
+* npm i 
+* npm run
+* npm run dev
+* scan the QR code in the terminal with Phone
