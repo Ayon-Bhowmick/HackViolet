@@ -3,11 +3,9 @@ import { SafeAreaView, View, Text, TextInput, Button, StyleSheet, TouchableOpaci
 import { useState } from 'react';
 import List from './List';
 
-
-const Main = ( {route, navigation } : any) => {
+const Main = () => {
     const [batteryLevel, setBatteryLevel] = useState(null);
-    const [text, setText] = useState('');
-    const [name, setName] = useState('bob');
+    const [name, setName] = useState('');
     const [distance, setDistance] = useState("");
 
     const getBatteryLevel = async () => {
@@ -16,10 +14,16 @@ const Main = ( {route, navigation } : any) => {
     }
 
     const makeGroup = async () => {
-        const id = await fetch('128.180.206.51:3000/api/makeGroup', {
-            method: 'POST',
-            body: JSON.stringify({distance}),
-        });
+        console.log(name);
+        let obj = {};
+        obj.distance = distance;
+        await fetch("http://128.180.206.51:3000/api/makeGroup", {
+            body: JSON.stringify({"distance": distance}),
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
     }
 
     const alertFunction = async () =>{
@@ -58,13 +62,11 @@ const Main = ( {route, navigation } : any) => {
                     
                     <TouchableOpacity style={styles.inputContainer}>
                         <TextInput 
-                        style={styles.nameInput}
-                        placeholder='          Enter Your Name' onChange={setName} value={name}/>
-
+                                    style={styles.nameInput} placeholder='          Enter Your Name' onChangeText={setName} value={name}/>
                         <TextInput 
-                        style={styles.nameInput}
-                        placeholder='         Enter Max Distance' onChange={setDistance} value={distance} keyboardType="numeric"/>
-                        <TouchableOpacity style={styles.create}  onPress={() => {setView("E"); makeGroup;}} title="Join Group">
+                                    style={styles.nameInput}
+                                    placeholder='         Enter Max Distance' onChangeText={setDistance} value={distance} keyboardType="numeric"/>
+                        <TouchableOpacity style={styles.create}  onPress={makeGroup} title="Join Group">
                             <Text style={styles.textCreate}>Create</Text>
                         </TouchableOpacity>
                     </TouchableOpacity>
