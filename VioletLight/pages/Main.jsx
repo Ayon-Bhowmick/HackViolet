@@ -14,8 +14,6 @@ const Main = () => {
     }
 
     const makeGroup = async () => {
-        console.log(name);
-        let obj = {};
         obj.distance = distance;
         await fetch("http://128.180.206.51:3000/api/makeGroup", {
             body: JSON.stringify({"distance": distance}),
@@ -24,6 +22,7 @@ const Main = () => {
                 'Content-Type': 'application/json'
             },
         })
+        setView("E");
     }
 
     const alertFunction = async () =>{
@@ -107,9 +106,6 @@ const Main = () => {
                     
                     <TouchableOpacity style={styles.inputContainer}>
                         <TextInput 
-<<<<<<< HEAD
-                                    style={styles.nameInput} placeholder='          Enter Your Name' onChangeText={setName} value={name}/>
-=======
                         style={styles.nameInput}
                         placeholder='          Enter Your Name' onChange={setName} />
 
@@ -118,7 +114,6 @@ const Main = () => {
                         placeholder='  Enter Your Phone Number' onChange={setName} />
 
                         
->>>>>>> 5d291bab2aa36c44912729c2edc06224010289ed
                         <TextInput 
                                     style={styles.nameInput}
                                     placeholder='         Enter Max Distance' onChangeText={setDistance} value={distance} keyboardType="numeric"/>
