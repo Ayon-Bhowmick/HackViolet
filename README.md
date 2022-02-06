@@ -18,3 +18,8 @@ git clone https://github.com/Ayon-Bhowmick/HackViolet.git
 * npm run
 * npm run dev
 * scan the QR code in the terminal with Phone
+### Team Members:
+1. Ayon Bhowmick
+2. Tiana Aldroubi
+3. Erick Tepen
+4. Josh Tripoli
