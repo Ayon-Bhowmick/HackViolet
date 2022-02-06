@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Button, Alert, FlatList, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Button, Alert, FlatList, Text, View ,TouchableOpacity} from 'react-native';
 import * as Device from 'expo-device';
 import * as Battery from 'expo-battery';
 import * as Location from 'expo-location';
@@ -159,9 +159,12 @@ const List = () => {
   }, []);
  
   return (
-    <View style={{ flex: 1, padding: 24 }}>
-      <Text style={styles.numID}>{Math.floor(100000 + Math.random() * 900000)}</Text>      
-      {isLoading ? <ActivityIndicator/> : (
+    <>
+    <Text style={styles.header}>VioletLight</Text>
+    <View style={{ flex: 1, padding: 24 , top: 30}}>
+      
+      <Text style={styles.numID}>ID: {Math.floor(100000 + Math.random() * 900000)}</Text>      
+      {isLoading ? <ActivityIndicator /> : (
         <FlatList
           data={data}
           keyExtractor={({ id }, index) => id}
@@ -172,9 +175,17 @@ const List = () => {
       )}
 
 
-        <Button
+    <TouchableOpacity style={styles.alertbtn}  onPress={() => alert('Button Tapped')} // generic alert
+        onPress={() => Alert.alert("Are you sure you want to send alert?", " ", [
+          { text: "No", onPress: () => console.log("No") },
+          { text: "Yes", onPress: () => { alertFunction() } },
+        ])} title="Create Group">
+                        <Text style={styles.textBtn}>ALERT</Text>
+    </TouchableOpacity>
+
+        {/* <Button
         color="red"
-        title="Emergency"
+        title="boobs"
         
         // onPress={() => alert('Button Tapped')} // generic alert
         onPress={() => Alert.alert("Are you sure you want to send alert?", " ", [
@@ -182,8 +193,9 @@ const List = () => {
           { text: "Yes", onPress: () => { alertFunction() } },
         ])}
 
-      />
+      /> */}
     </View>
+    </>
  
   );
  
@@ -198,13 +210,39 @@ const styles = StyleSheet.create({
 
   },
   items: {
-    backgroundColor:'#FFF',
-    padding: 0,
+    backgroundColor:'rgb(220, 157, 250)',
+    padding: 5,
     margin: 1,
     fontSize: 24,
     height: 44,
     width: 300,
     textAlign: 'center',
+    
   },
+    header: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        color: 'rgb(220, 157, 250)'
+
+    },
+
+    alertbtn: {
+      backgroundColor: 'red',
+      bottom: 100,
+      left: 50,
+      width: 170,
+      height: 80,
+      borderRadius:10
+
+    },
+
+    textBtn: {
+      fontSize: 30,
+      fontWeight: 'bold',
+      color: '#FFF',
+      textAlign: 'center',
+      top: 20
+
+    }
 });
 export default List;
