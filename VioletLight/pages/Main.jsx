@@ -5,17 +5,20 @@ import List from './List';
 // import SMSForm from './SMSForm';
 
 const Main = () => {
-    const [batteryLevel, setBatteryLevel] = useState(null);
     const [name, setName] = useState('');
     const [distance, setDistance] = useState("");
+    const [phone, setPhone] = useState("");
 
     const getBatteryLevel = async () => {
-        const { level } = await Battery.getBatteryLevelAsync();
-        setBatteryLevel(level);
+        const bat = await Battery.getBatteryLevelAsync();
+        const percent = Math.round(bat * 100);
+        return percent;
     }
 
     const makeGroup = async () => {
+        const bat = await getBatteryLevel();
         
+
         await fetch("http://128.180.206.51:3000/api/makeGroup", {
             body: JSON.stringify({"distance": distance}),
             method: "POST",
@@ -23,6 +26,10 @@ const Main = () => {
                 'Content-Type': 'application/json'
             },
         })
+        setView("E");
+    }
+
+    const joinGroup = async () => {
         setView("E");
     }
 
@@ -82,12 +89,11 @@ const Main = () => {
                     <TouchableOpacity style={styles.inputContainer}>
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='          Enter Your Name' onChange={setName} />
+                        placeholder='          Enter Your Name' onChange={setName}  value={name}/>
 
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='  Enter Your Phone Number' onChange={setName} />
-
+                        placeholder='  Enter Your Phone Number' onChange={setPhone} value={phone}/>
                         
                         <TextInput 
                                     style={styles.nameInput}
@@ -111,14 +117,14 @@ const Main = () => {
                         
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='          Enter Your Name' onChange={setName} />
+                        placeholder='          Enter Your Name' onChange={setName} value={name} />
 
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='  Enter Your Phone Number' onChange={setName}/>
+                        placeholder='  Enter Your Phone Number' onChange={setPhone} value={phone}/>
 
 
-                        <TouchableOpacity style={styles.create}  onPress={() => setView("E")} title="Join Group">
+                        <TouchableOpacity style={styles.create}  onPress={joinGroup} title="Join Group">
                             <Text style={styles.textCreate}>Join</Text>
                         </TouchableOpacity>
                     </TouchableOpacity>
