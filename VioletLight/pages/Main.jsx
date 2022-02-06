@@ -74,11 +74,6 @@ const Main = () => {
         // setView("E");
     }
 
-    const alertFunction = async () =>{
-        // ERICK CODE HERE
-
-    }
-
     const [view, setView] = useState("E");
 
     useEffect(() => {
