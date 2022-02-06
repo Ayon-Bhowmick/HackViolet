@@ -3,7 +3,6 @@ import { SafeAreaView, View, Text, TextInput, Button, StyleSheet, TouchableOpaci
 import { useState, useEffect } from 'react';
 import List from './List';
 import * as Location from 'expo-location';
-// import SMSForm from './SMSForm';
 
 const Main = () => {
     const [name, setName] = useState('');
@@ -43,6 +42,25 @@ const Main = () => {
         setView("E");
     }
 
+<<<<<<< HEAD
+    const alertFunction = async () =>{
+        // ERICK CODE HERE
+        <head>
+	<script type="text/javascript" src="Public/Scripts/Screen.js"></script></head>
+
+    }
+
+    const generateID = async () => {
+        //Generate a random number XXXX
+        //compare this generated number with all ID's currently in the database
+        //if this number matches any one of them generate a new random number and redo
+        //if this number does not match any of them then set this number to be the meeting ID 
+        //create a new group on server with this meeting ID and display
+        
+    }
+
+        //check the current location of the device
+        //send this information to the server
     const joinGroup = async () => {
         setView("E");
     }
