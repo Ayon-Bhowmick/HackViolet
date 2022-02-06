@@ -12,12 +12,16 @@ const alertFunction = async () =>{
 }
 
 const generateID = async () => {
+
+  let ID = Math.floor(Math.random() * 1001);
+  
     //Generate a random number XXXX
     //compare this generated number with all ID's currently in the database
     //if this number matches any one of them generate a new random number and redo
     //if this number does not match any of them then set this number to be the meeting ID 
     //create a new group on server with this meeting ID and display
-    
+
+    return ID;
 }
 
 
