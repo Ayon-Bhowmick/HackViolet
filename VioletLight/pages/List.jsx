@@ -149,7 +149,7 @@ const List = () => {
  
   return (
     <View style={{ flex: 1, padding: 24 }}>
-      <Text>{Math.floor(100000 + Math.random() * 900000)}</Text>      
+      <Text style={styles.numID}>{Math.floor(100000 + Math.random() * 900000)}</Text>      
       {isLoading ? <ActivityIndicator/> : (
         <FlatList
           data={data}
@@ -164,6 +164,7 @@ const List = () => {
         <Button
         color="red"
         title="Emergency"
+        
         // onPress={() => alert('Button Tapped')} // generic alert
         onPress={() => Alert.alert("Are you sure you want to send alert?", " ", [
           { text: "No", onPress: () => console.log("No") },
@@ -178,6 +179,13 @@ const List = () => {
 };
  
 const styles = StyleSheet.create({
+  numID: {
+    fontWeight: 'bold',
+    fontSize: 48,
+    color: '#fff',
+    textAlign: 'center',
+
+  },
   items: {
     backgroundColor:'#FFF',
     padding: 0,
