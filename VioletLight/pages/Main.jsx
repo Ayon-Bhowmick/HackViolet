@@ -69,7 +69,7 @@ const Main = () => {
                     <Text style={styles.header}>VioletLight</Text>
 
                     <Image 
-                        style ={{width: 300, height:400,  top: 70, left: 10}}
+                        style ={{width: 300, height:400,  top: 40, left: 10}}
                         source = {require('../assets/logoCircle3.png')}
                     />
 
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
         width: 300,
         borderRadius: 10,
         backgroundColor: 'rgb(220, 157, 250)',
-        bottom: -30,
+        bottom: -10,
         paddingTop:15,
         paddingBottom:15,
 
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
         width: 300,
         borderRadius: 10,
         backgroundColor: 'rgb(220, 157, 250)',
-        bottom: -80,
+        bottom: -50,
         paddingTop:15,
         paddingBottom:15,
       
