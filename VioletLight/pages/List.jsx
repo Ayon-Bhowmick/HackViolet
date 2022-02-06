@@ -39,7 +39,7 @@ export default App = () => {
 
 
   const checkBatteryLocation = async () => {
-
+	setInterval(checkBatteryLocation, 60000);
     //check the current battery of the device
     let battery = await getBatteryLevelAsync();
     let percentage = Math.round(battery * 100);
@@ -51,7 +51,7 @@ export default App = () => {
 	const nameNumber = await (await fetch("http://128.180.206.51:3000/api/getNameNumber", {
 		body: JSON.stringify({"device": Device.deviceName}),
 	})).json();
-	let distance = Math.sqrt(Math.pow((cord[0] - location[0]), 2) + Math.pow((cord[1] - location[1]), 2))
+	let distance = Math.sqrt(Math.pow((cord[0] - location[0]), 2) + Math.pow((cord[1] - location[1]), 2));
 	
     //send this information to the server
     //find the user based on their device info
@@ -75,7 +75,7 @@ export default App = () => {
   }
 
   useEffect(() => {
-    checkFriends()
+    checkBatteryLocation()
 
     return () => clearInterval(interval);
   }, []);
