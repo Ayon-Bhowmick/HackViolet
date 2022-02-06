@@ -1,41 +1,73 @@
+import { getBatteryLevelAsync } from 'expo-battery';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, Button, Text, View, Alert } from 'react-native';
 
 export default App = () => {
 
+
+
 const alertFunction = async () =>{
+  console.log("ALERT ACTIVATED")
     // ERICK CODE HERE
 }
 
 const generateID = async () => {
+
+  let ID = Math.floor(Math.random() * 1001);
+  
     //Generate a random number XXXX
     //compare this generated number with all ID's currently in the database
     //if this number matches any one of them generate a new random number and redo
     //if this number does not match any of them then set this number to be the meeting ID 
     //create a new group on server with this meeting ID and display
-    
+
+    return ID;
 }
 
-const checkLocation = async () => {
 
-    //check the current location of the device
-    //send this information to the server
-}
-
-const checkBattery = async () => {
+const checkBatteryLocation = async () => {
 
     //check the current battery of the device
+    let battery = await getBatteryLevelAsync();
+    let percentage = Math.round(battery *100);
+    console.log(percentage);
+    
+    //check the current location
+
+
     //send this information to the server
 }
 
-const checkFriends = async () => {
+useEffect(() => {
+  checkBatteryLocation()
+  return () => clearInterval(interval);
+ }, []);
 
-    //pull from server all info about friends in party
-    //check if any of the values go outside the constraints
-    //if values exceed constraints then send an alert to the user
-    //if values are okay then display the info in the table
 
+setInterval(checkBatteryLocation, 60000);
+
+//this function checks the location and battery of all friends
+async function checkFriends() {
+
+  // await fetch("http://128.180.206.51:3000/api/makeGroup", {
+
+
+  // })
+
+  //for loop to go through everyones location
+
+  
+  
 }
+
+useEffect(() => {
+  checkFriends()
+
+  return () => clearInterval(interval);
+ }, []);
+
+
+setInterval(checkFriends, 300000);
 
 
   const [isLoading, setLoading] = useState(true);
@@ -68,6 +100,20 @@ const checkFriends = async () => {
           )}
         />
       )}
+
+
+
+  <Button
+        color="red"
+        title="Emergency"
+        // onPress={() => alert('Button Tapped')} // generic alert
+        onPress={() => Alert.alert("Are you sure you want to send alert?", " ", [
+          {text: "No", onPress: () => console.log("No")},
+          {text: "Yes", onPress: () => {alertFunction()}},
+        ])}
+
+      />
+
     </View>
   );
 };
