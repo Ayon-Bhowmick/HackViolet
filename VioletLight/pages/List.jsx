@@ -1,6 +1,6 @@
 import { getBatteryLevelAsync } from 'expo-battery';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, Text, View, Alert } from 'react-native';
 
 export default App = () => {
 
@@ -21,12 +21,12 @@ const generateID = async () => {
 const checkBatteryLocation = async () => {
 
     //check the current battery of the device
-    var battery = await getBatteryLevelAsync();
-    var percentage = Math.round(battery *100);
+    let battery = await getBatteryLevelAsync();
+    let percentage = Math.round(battery *100);
     console.log(percentage);
     
     //check the current location
-    
+
 
     //send this information to the server
 }
@@ -86,6 +86,15 @@ setInterval(checkFriends, 300000);
           )}
         />
       )}
+
+
+
+      <Button
+        color="red"
+        title="Prompt Here"
+        onPress={() => 
+          Alert.prompt("My Title", "My message", text => console.log(text))}
+      />
     </View>
   );
 };
