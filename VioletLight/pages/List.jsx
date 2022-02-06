@@ -1,6 +1,7 @@
 import { getBatteryLevelAsync } from 'expo-battery';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, Button, Text, View, Alert } from 'react-native';
+import * as Device from 'expo-device';
 
 export default App = () => {
 
@@ -32,8 +33,15 @@ const checkBatteryLocation = async () => {
     let percentage = Math.round(battery *100);
     console.log(percentage);
     
-    //check the current location
+  let nameNumber = await fetch("http://128.180.206.51:3000/api/getNameNumber", {
+    body: JSON.stringify({"device": Device.deviceName}),
+  });
 
+  let 
+
+    //check the current location
+  	const location = await Location.getCurrentPositionAsync();
+    let cord = [ location.coords.latitude, location.coords.longitude ];
 
     //send this information to the server
 }

@@ -18,7 +18,7 @@ const Main = () => {
 
     const getLocation = async () => {
         getLocationPermission();
-        let location = await Location.getCurrentPositionAsync();
+        const location = await Location.getCurrentPositionAsync();
         let cord = [ location.coords.latitude, location.coords.longitude ];
         return cord;
     }
