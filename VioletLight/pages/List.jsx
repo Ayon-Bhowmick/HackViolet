@@ -9,15 +9,60 @@ export default App = () => {
 
   const alertFunction = async () => {
 
+    //put the whole thing in a for loop and send to each person
+
     //console log that the alert was activated
     console.log("ALERT ACTIVATED")
 
     //get the name of the person sending the alert
-    
+    let name = 'bob';
+    let message = {to:"3475268828", message: `${name} has sent an EMERGENCY ALERT!!!`};
 
-    //hard code in a message
     //fetch the api for twillio
-    //send to each person in the database
+    await fetch('/api/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(message),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          this.setState({
+            error: false,
+            submitting: false,
+            message: {
+              to: '',
+              body: ''
+            }
+          });
+        } else {
+          this.setState({
+            error: true,
+            submitting: false
+          });
+        }
+      })
+
+    //    constructor(props) {
+    //      console.log("on costruct")
+    //        super(props);
+    //        this.state = {
+    //          message: {
+    //            to: '',
+    //            body: ''
+    //          },
+    //          submitting: false,
+    //          error: false
+    //        };
+    //        console.log(this.state);
+    //        console.log("before onHandle");
+    //        this.onHandleChange = this.onHandleChange.bind(this);
+    //        console.log("before onSubmit");
+    //        this.onSubmit=this.onSubmit.bind(this);
+    //      }
+    // //send to each person in the database
   
 
     
