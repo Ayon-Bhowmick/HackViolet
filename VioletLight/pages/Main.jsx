@@ -5,17 +5,20 @@ import List from './List';
 // import SMSForm from './SMSForm';
 
 const Main = () => {
-    const [batteryLevel, setBatteryLevel] = useState(null);
     const [name, setName] = useState('');
     const [distance, setDistance] = useState("");
+    const [phone, setPhone] = useState("");
 
     const getBatteryLevel = async () => {
-        const { level } = await Battery.getBatteryLevelAsync();
-        setBatteryLevel(level);
+        const bat = await Battery.getBatteryLevelAsync();
+        const percent = Math.round(bat * 100);
+        return percent;
     }
 
     const makeGroup = async () => {
+        const bat = await getBatteryLevel();
         
+
         await fetch("http://128.180.206.51:3000/api/makeGroup", {
             body: JSON.stringify({"distance": distance}),
             method: "POST",
@@ -26,40 +29,17 @@ const Main = () => {
         setView("E");
     }
 
+    const joinGroup = async () => {
+        setView("E");
+    }
+
     const alertFunction = async () =>{
         // ERICK CODE HERE
 
     }
 
-    const generateID = async () => {
-        //Generate a random number XXXX
-        //compare this generated number with all ID's currently in the database
-        //if this number matches any one of them generate a new random number and redo
-        //if this number does not match any of them then set this number to be the meeting ID 
-        //create a new group on server with this meeting ID and display
-        
-    }
 
-    const checkLocation = async () => {
-
-        //check the current location of the device
-        //send this information to the server
-    }
-
-    const checkBattery = async () => {
-
-        //check the current battery of the device
-        //send this information to the server
-    }
-
-    const checkFriends = async () => {
-
-        //pull from server all info about friends in party
-        //check if any of the values go outside the constraints
-        //if values exceed constraints then send an alert to the user
-        //if values are okay then display the info in the table
-
-    }
+  
 
     const [view, setView] = useState("A");
 
@@ -89,7 +69,7 @@ const Main = () => {
                     <Text style={styles.header}>VioletLight</Text>
 
                     <Image 
-                        style ={{width: 300, height:400,  top: 60, left: 10}}
+                        style ={{width: 300, height:400,  top: 95, left: 10}}
                         source = {require('../assets/logoCircle3.png')}
                     />
 
@@ -109,12 +89,11 @@ const Main = () => {
                     <TouchableOpacity style={styles.inputContainer}>
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='          Enter Your Name' onChange={setName} />
+                        placeholder='          Enter Your Name' onChange={setName}  value={name}/>
 
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='  Enter Your Phone Number' onChange={setName} />
-
+                        placeholder='  Enter Your Phone Number' onChange={setPhone} value={phone}/>
                         
                         <TextInput 
                                     style={styles.nameInput}
@@ -138,14 +117,14 @@ const Main = () => {
                         
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='          Enter Your Name' onChange={setName} />
+                        placeholder='          Enter Your Name' onChange={setName} value={name} />
 
                         <TextInput 
                         style={styles.nameInput}
-                        placeholder='  Enter Your Phone Number' onChange={setName}/>
+                        placeholder='  Enter Your Phone Number' onChange={setPhone} value={phone}/>
 
 
-                        <TouchableOpacity style={styles.create}  onPress={() => setView("E")} title="Join Group">
+                        <TouchableOpacity style={styles.create}  onPress={joinGroup} title="Join Group">
                             <Text style={styles.textCreate}>Join</Text>
                         </TouchableOpacity>
                     </TouchableOpacity>
@@ -210,7 +189,7 @@ const styles = StyleSheet.create({
         width: 300,
         borderRadius: 10,
         backgroundColor: 'rgb(220, 157, 250)',
-        bottom: -30,
+        bottom: -70,
         paddingTop:15,
         paddingBottom:15,
 
@@ -220,7 +199,7 @@ const styles = StyleSheet.create({
         width: 300,
         borderRadius: 10,
         backgroundColor: 'rgb(220, 157, 250)',
-        bottom: -80,
+        bottom: -120,
         paddingTop:15,
         paddingBottom:15,
       

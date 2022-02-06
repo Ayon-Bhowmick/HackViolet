@@ -23,12 +23,12 @@ const generateID = async () => {
 const checkBatteryLocation = async () => {
 
     //check the current battery of the device
-    var battery = await getBatteryLevelAsync();
-    var percentage = Math.round(battery *100);
+    let battery = await getBatteryLevelAsync();
+    let percentage = Math.round(battery *100);
     console.log(percentage);
     
     //check the current location
-    
+
 
     //send this information to the server
 }
