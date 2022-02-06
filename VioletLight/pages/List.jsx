@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
 
   },
   items: {
-    backgroundColor:'rgb(220, 157, 250)',
+    backgroundColor:'#FFF',
     padding: 5,
     margin: 1,
     fontSize: 24,
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     header: {
         fontSize: 30,
         fontWeight: 'bold',
-        color: '#FFF'
+        color: 'rgb(220, 157, 250)'
 
     },
 
