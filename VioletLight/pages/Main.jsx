@@ -74,9 +74,9 @@ const Main = () => {
         // setView("E");
     }
 
-    const alertFunction = async () =>{
-        // ERICK CODE HERE
-
+    const finish = async () => {
+        await fetch('http://128.180.206.51:3000/api/wipe');
+        setView("A")
     }
 
     const [view, setView] = useState("A");
@@ -176,6 +176,13 @@ const Main = () => {
                 )}
                 {view === "E" && (
                     <>
+                    <TouchableOpacity style={styles.btn}  
+                        onPress={() => finish()} // generic alert
+                       //</> onPress={() => fetch('http://128.180.206.51:3000/api/wipe')
+                       // } title="Finish"
+                       >
+                        <Text style={styles.finishTxt}>X finish</Text>
+    </TouchableOpacity>
                         <List />
                     </>
                 
@@ -197,6 +204,20 @@ const styles = StyleSheet.create({
         
       
     },
+    btn: {
+        top:10,
+        left:140,
+        backgroundColor: 'rgb(143, 112, 250)',
+        width: 75,
+        padding: 10,
+        borderRadius: 10,
+  
+      },
+  
+      finishTxt:{
+        fontSize: 16,
+  
+      },
     header: {
         fontSize: 30,
         fontWeight: 'bold',
